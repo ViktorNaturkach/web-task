@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTask", "WebTask\WebTask.csproj", "{32825C6E-08A3-4D73-BD3F-ABE50E5EC2A0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32825C6E-08A3-4D73-BD3F-ABE50E5EC2A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32825C6E-08A3-4D73-BD3F-ABE50E5EC2A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32825C6E-08A3-4D73-BD3F-ABE50E5EC2A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32825C6E-08A3-4D73-BD3F-ABE50E5EC2A0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {082E74BC-8B58-41F4-ADCD-97BE595ED4FA}
+	EndGlobalSection
+EndGlobal
