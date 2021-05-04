@@ -1,5 +1,42 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model WebTask.ViewModels.LoginViewModel
+<!-- Register Section Begin -->
+<div class="register-login-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="login-form">
+                    <h2>Login</h2>
+                    <form method="post" asp-controller="Account" asp-action="Login"
+                          asp-route-returnUrl="@Model.ReturnUrl">
+                        <div asp-validation-summary="ModelOnly"></div>
+                        <div class="group-input">
+                            <label asp-for="Email">Username or email address *</label>
+                            <input asp-for="Email" type="text">
+                            <span asp-validation-for="Email"></span>
+                        </div>
+                        <div class="group-input">
+                            <label asp-for="Password">Password *</label>
+                            <input asp-for="Password" type="password" id="pass">
+                            <span asp-validation-for="Password"></span>
+                        </div>
+                        <div class="group-input gi-check">
+                            <div class="gi-more">
+                                <label asp-for="RememberMe">
+                                    Save Password
+                                    <input asp-for="RememberMe">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <a href="#" class="forget-pass">Forget your Password</a>
+                            </div>
+                        </div>
+                        <button type="submit" class="site-btn login-btn">Sign In</button>
+                    </form>
+                    <div class="switch-login">
+                        <a asp-action="Register" asp-controller="Account" class="or-login">Or Create An Account</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Register Form Section End -->

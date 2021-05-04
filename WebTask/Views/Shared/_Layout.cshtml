@@ -43,21 +43,24 @@
                     </div>
                 </div>
                 <div class="ht-right">
-                    <a href="#" class="login-panel"><i class="fa fa-user"></i>Login</a>
-                    <a class="login-panel" asp-action="Register" asp-controller="Account"><i class="fa fa-user-plus"></i>Registration</a>
-                   <!-- <div class="lan-selector">
-                        <select class="language_drop" name="countries" id="countries" style="width:300px;">
-                            <option value='yt' data-image="img/flag-1.jpg" data-imagecss="flag yt"
-                                    data-title="English">
-                                English
-                            </option>
-                            <option value='yu' data-image="img/flag-2.jpg" data-imagecss="flag yu"
-                                    data-title="Bangladesh">
-                                German
-                            </option>
-                        </select>
-                    </div>
+                    @await Component.InvokeAsync("LoginStatus")
+                    <!----<a class="login-panel" asp-action="Login" asp-controller="Account"><i class="fa fa-user"></i>Login</a>
                     -->
+                    <!----<a class="login-panel" asp-action="Register" asp-controller="Account"><i class="fa fa-user-plus"></i>Registration</a>
+                        -->
+                    <!-- <div class="lan-selector">
+         <select class="language_drop" name="countries" id="countries" style="width:300px;">
+             <option value='yt' data-image="img/flag-1.jpg" data-imagecss="flag yt"
+                     data-title="English">
+                 English
+             </option>
+             <option value='yu' data-image="img/flag-2.jpg" data-imagecss="flag yu"
+                     data-title="Bangladesh">
+                 German
+             </option>
+         </select>
+     </div>
+     -->
                     <div class="top-social">
                         <a href="#"><i class="ti-facebook"></i></a>
                         <a href="#"><i class="ti-twitter-alt"></i></a>
@@ -72,7 +75,7 @@
                 <div class="row">
                     <div class="col-lg-2 col-md-2">
                         <div class="logo">
-                            <a href="./index.html">
+                            <a asp-action="Index" asp-controller="Home">
                                 <img src="~/img/logo.png" alt="">
                             </a>
                         </div>
@@ -166,7 +169,7 @@
                 </div>
                 <nav class="nav-menu mobile-menu">
                     <ul>
-                        <li class="active"><a href="./index.html">Home</a></li>
+                        <li class="active"><a asp-action="Index" asp-controller="Home">Home</a></li>
                         <li><a href="./shop.html">Shop</a></li>
                         <li>
                             <a href="#">Collection</a>
@@ -185,8 +188,8 @@
                                 <li><a href="./shopping-cart.html">Shopping Cart</a></li>
                                 <li><a href="./check-out.html">Checkout</a></li>
                                 <li><a href="./faq.html">Faq</a></li>
-                                <li><a href="./register.html">Register</a></li>
-                                <li><a href="./login.html">Login</a></li>
+                                <li><a asp-action="Register" asp-controller="Account">Register</a></li>
+                                <li><a asp-action="Login" asp-controller="Account">Login</a></li>
                             </ul>
                         </li>
                     </ul>
