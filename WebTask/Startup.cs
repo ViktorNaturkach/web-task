@@ -31,6 +31,10 @@ namespace WebTask
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<IdentityContext>();
+
+            services.AddDbContext<AppDbContext>(options =>
+                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddTransient<IDataRepository, EFDataRepository>();
             services.AddControllersWithViews();
         }
 
