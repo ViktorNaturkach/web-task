@@ -1,23 +1,27 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using WebTask.Models;
+using WebTask.EFData.Entities;
+using WebTask.Services.DTO;
+using WebTask.Services.Interfaces;
 using WebTask.ViewModels;
 
 namespace WebTask.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly ILoginService _loginService;
+        private readonly IRegisterService _registerService;
+        private readonly IMapper _mapper;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController( SignInManager<User> signInManager, ILoginService loginService, IMapper mapper, IRegisterService registerService)
         {
-            _userManager = userManager;
             _signInManager = signInManager;
+            _loginService = loginService;
+            _mapper = mapper;
+            _registerService = registerService;
         }
         [HttpGet]
         public IActionResult Register()
@@ -29,11 +33,11 @@ namespace WebTask.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = model.Email, UserName = model.Email };
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var userDTO = _mapper.Map<UserDTO>(model);
+                var result = await _registerService.RegisterAsync(userDTO);
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, false);
+                    await _loginService.LoginAsync(userDTO, false);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -58,8 +62,9 @@ namespace WebTask.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result =
-                    await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                var userDTO = _mapper.Map<UserDTO>(model);
+                var result = await _loginService.LoginAsync(userDTO, model.RememberMe);
+
                 if (result.Succeeded)
                 {
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))

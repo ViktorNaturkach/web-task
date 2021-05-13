@@ -1,24 +1,36 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebTask.Models;
+using WebTask.EFData.Entities;
+using WebTask.Services.DTO;
+using WebTask.Services.Interfaces;
+using WebTask.Services.Interfaces.Identity;
 using WebTask.ViewModels;
+using WebTask.ViewModels.Identity.Users;
 
 namespace WebTask.Controllers
 {
     [Authorize(Roles = "Administrators")]
     public class RolesController : Controller
     {
-        RoleManager<IdentityRole> _roleManager;
-        UserManager<User> _userManager;
-        public RolesController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
+        private readonly IMapper _mapper;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<User> _userManager;
+        private readonly IRoleService _roleService;
+        private readonly IUsersService _usersService;
+
+        public RolesController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager, IMapper mapper, IRoleService roleService, IUsersService usersService)
         {
             _roleManager = roleManager;
             _userManager = userManager;
+            _mapper = mapper;
+            _roleService = roleService;
+            _usersService = usersService;
         }
         public IActionResult Index() => View(_roleManager.Roles.ToList());
 
@@ -55,49 +67,29 @@ namespace WebTask.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult UserList() => View(_userManager.Users.ToList());
+        public IActionResult UserList()
+        {
+            var usersDTO = _usersService.GetUsers();
+            var model = _mapper.Map<UsersListViewModel>(usersDTO);
+            return View(model.users);
+        }
 
         public async Task<IActionResult> Edit(string userId)
         {
-            // получаем пользователя
-            User user = await _userManager.FindByIdAsync(userId);
-            if (user != null)
+            ChangeRoleDTO user = await _roleService.GetUserRoles(userId);
+            if (user == null)
             {
-                // получем список ролей пользователя
-                var userRoles = await _userManager.GetRolesAsync(user);
-                var allRoles = _roleManager.Roles.ToList();
-                ChangeRoleViewModel model = new ChangeRoleViewModel
-                {
-                    UserId = user.Id,
-                    UserEmail = user.Email,
-                    UserRoles = userRoles,
-                    AllRoles = allRoles
-                };
-                return View(model);
+                return NotFound();
             }
-
-            return NotFound();
+            ChangeRoleViewModel model = _mapper.Map<ChangeRoleViewModel>(user);
+            return View(model);
         }
         [HttpPost]
         public async Task<IActionResult> Edit(string userId, List<string> roles)
         {
-            // получаем пользователя
-            User user = await _userManager.FindByIdAsync(userId);
-            if (user != null)
+            var result = await _roleService.EditUserRoles(userId,roles);
+            if (result)
             {
-                // получем список ролей пользователя
-                var userRoles = await _userManager.GetRolesAsync(user);
-                // получаем все роли
-                var allRoles = _roleManager.Roles.ToList();
-                // получаем список ролей, которые были добавлены
-                var addedRoles = roles.Except(userRoles);
-                // получаем роли, которые были удалены
-                var removedRoles = userRoles.Except(roles);
-
-                await _userManager.AddToRolesAsync(user, addedRoles);
-
-                await _userManager.RemoveFromRolesAsync(user, removedRoles);
-
                 return RedirectToAction("UserList");
             }
 

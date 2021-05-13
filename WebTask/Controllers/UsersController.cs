@@ -1,24 +1,41 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebTask.EFData.Entities;
 using WebTask.Models;
+using WebTask.Services.DTO;
+using WebTask.Services.Interfaces;
 using WebTask.ViewModels;
+using WebTask.ViewModels.Identity.Users;
 
 namespace WebTask.Controllers
 {
+    [Authorize(Roles = "Administrators")]
     public class UsersController : Controller
     {
-        UserManager<User> _userManager;
+        private readonly IMapper _mapper;
+        private readonly IUsersService _usersService;
+        private readonly IRegisterService  _registerService;
 
-        public UsersController(UserManager<User> userManager)
+
+        public UsersController(UserManager<User> userManager, IMapper mapper, IUsersService usersService, IRegisterService registerService)
         {
-            _userManager = userManager;
+            _mapper = mapper;
+            _usersService = usersService;
+            _registerService = registerService;
         }
 
-        public IActionResult Index() => View(_userManager.Users.ToList());
+        public IActionResult Index()
+        {
+            var usersDTO = _usersService.GetUsers();
+            var model = _mapper.Map<UsersListViewModel>(usersDTO);
+            return View(model.users);
+        }
 
         public IActionResult Create() => View();
 
@@ -27,11 +44,11 @@ namespace WebTask.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = model.Email};
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var userDTO = _mapper.Map<UserDTO>(model);
+                var result = await _registerService.RegisterAsync(userDTO);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Users");
                 }
                 else
                 {
@@ -46,12 +63,12 @@ namespace WebTask.Controllers
 
         public async Task<IActionResult> Edit(string id)
         {
-            User user = await _userManager.FindByIdAsync(id);
+            UserDTO user = await _usersService.GetUserAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
-            EditUserViewModel model = new EditUserViewModel { Id = user.Id, Email = user.Email};
+            EditUserViewModel model = _mapper.Map<EditUserViewModel>(user);
             return View(model);
         }
 
@@ -60,13 +77,8 @@ namespace WebTask.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await _userManager.FindByIdAsync(model.Id);
-                if (user != null)
-                {
-                    user.Email = model.Email;
-                    user.UserName = model.Email;
- 
-                    var result = await _userManager.UpdateAsync(user);
+                var userDTO = _mapper.Map<UserDTO>(model);
+                var result = await _usersService.UpdateUserAsync(userDTO);
                     if (result.Succeeded)
                     {
                         return RedirectToAction("Index");
@@ -78,7 +90,6 @@ namespace WebTask.Controllers
                             ModelState.AddModelError(string.Empty, error.Description);
                         }
                     }
-                }
             }
             return View(model);
         }
@@ -86,10 +97,17 @@ namespace WebTask.Controllers
         [HttpPost]
         public async Task<ActionResult> Delete(string id)
         {
-            User user = await _userManager.FindByIdAsync(id);
-            if (user != null)
+            var result = await _usersService.DeleteUserAsync(id);
+            if (result.Succeeded)
             {
-                IdentityResult result = await _userManager.DeleteAsync(user);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
             }
             return RedirectToAction("Index");
         }

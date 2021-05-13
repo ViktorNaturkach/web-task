@@ -3,14 +3,16 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using WebTask.EFData.Entities;
 
-namespace WebTask.Models
+namespace WebTask.EFData
 {
-    public class IdentityContext : IdentityDbContext<User>
+    class IdentityContext : IdentityDbContext<User>
     {
         public IdentityContext(DbContextOptions<IdentityContext> options)
-     : base(options)
+       : base(options)
         {
         }
     }

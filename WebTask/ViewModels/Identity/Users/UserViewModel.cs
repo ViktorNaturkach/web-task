@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebTask.ViewModels
+namespace WebTask.ViewModels.Identity.Users
 {
-    public class EditUserViewModel
+    public class UserViewModel
     {
         public string Id { get; set; }
         public string Email { get; set; }

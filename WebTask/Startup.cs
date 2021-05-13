@@ -1,16 +1,16 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using WebTask.EFData;
+using WebTask.Mappings;
 using WebTask.Models;
+using WebTask.Services.Implementations;
+using WebTask.Services.Implementations.Identity;
+using WebTask.Services.Interfaces;
+using WebTask.Services.Interfaces.Identity;
 
 namespace WebTask
 {
@@ -26,16 +26,21 @@ namespace WebTask
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<IdentityContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<IdentityContext>();
-
+            services.AddEFDataLayer(Configuration);
+   
             services.AddDbContext<AppDbContext>(options =>
                  options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            
+            #region Services
+            services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<IRegisterService, RegisterService>();
+            services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<IRoleService, RoleService>();
+            #endregion
+
             services.AddTransient<IDataRepository, EFDataRepository>();
             services.AddControllersWithViews();
+            services.AddAutoMapper (typeof(UserProfile).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

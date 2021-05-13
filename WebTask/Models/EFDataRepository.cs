@@ -18,7 +18,7 @@ namespace WebTask.Models
 
         public IEnumerable<Product> GetProducts()
         {
-            return context.Products.ToArray();
+            return context.Products   .ToArray();
         }
     }
 }
