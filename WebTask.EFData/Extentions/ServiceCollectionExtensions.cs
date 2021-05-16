@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WebTask.EFData.Entities;
+using WebTask.Common;
 
 namespace WebTask.EFData
 {

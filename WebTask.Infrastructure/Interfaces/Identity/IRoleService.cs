@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using WebTask.Services.DTO;
+using WebTask.InfrastructureDTO;
 
-namespace WebTask.Services.Interfaces.Identity
+namespace WebTask.Infrastructure.Interfaces.Identity
 {
     public interface IRoleService
     {

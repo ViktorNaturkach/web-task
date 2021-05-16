@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebTask.EFData.Entities;
-using WebTask.Services.DTO;
+using WebTask.InfrastructureDTO;
 
-namespace WebTask.Services.Interfaces
+namespace WebTask.Infrastructure.Interfaces
 {
     public interface ILoginService
     {

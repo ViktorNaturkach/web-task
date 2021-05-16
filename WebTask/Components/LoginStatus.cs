@@ -1,30 +1,31 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using WebTask.Models;
-using WebTask.EFData.Entities;
+using WebTask.Infrastructure.Interfaces;
+using WebTask.Infrastructure.Interfaces.Identity;
+using WebTask.ViewModels;
+using WebTask.ViewModels.Identity.Account;
 
 namespace WebTask.Components
 {
     public class LoginStatus : ViewComponent
     {
-        private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
+        private readonly IMapper _mapper;
+        private readonly IUserInfoService _userInfoService;
 
-        public LoginStatus(SignInManager<User> signInManager, UserManager<User> userManager)
+        public LoginStatus(IUsersService usersService, IUserInfoService userInfoService, IMapper mapper)
         {
-            _signInManager = signInManager;
-            _userManager = userManager;
+            _userInfoService = userInfoService;
+            _mapper = mapper;
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            if (_signInManager.IsSignedIn(HttpContext.User))
+            var userDTO = await _userInfoService.GetIdentityUserAsync(HttpContext.User);
+            UserIdentityViewModel model = _mapper.Map<UserIdentityViewModel>(userDTO);
+
+            if (model != null)
             {
-                var user = await _userManager.GetUserAsync(HttpContext.User);
-                return View("LoggedIn", user);
+                return View("LoggedIn", model);
             }
             else
             {

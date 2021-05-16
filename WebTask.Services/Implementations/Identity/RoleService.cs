@@ -3,10 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WebTask.InfrastructureDTO.DTO;
+using WebTask.Infrastructure.Interfaces.Identity;
+using WebTask.Common;
 using System.Threading.Tasks;
-using WebTask.EFData.Entities;
-using WebTask.Services.DTO;
-using WebTask.Services.Interfaces.Identity;
+using WebTask.InfrastructureDTO;
 
 namespace WebTask.Services.Implementations.Identity
 {

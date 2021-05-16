@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebTask.EFData.Entities;
-using WebTask.Services.DTO;
-using WebTask.Services.Interfaces;
+using WebTask.Common;
+using WebTask.Infrastructure.Interfaces;
+using WebTask.InfrastructureDTO;
 
 namespace WebTask.Services.Implementations.Identity
 {

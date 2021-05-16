@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using WebTask.EFData.Entities;
-using WebTask.Services.DTO;
 using WebTask.ViewModels;
 using WebTask.ViewModels.Identity.Users;
+using WebTask.ViewModels.Identity.Account;
+using WebTask.InfrastructureDTO;
 
 namespace WebTask.Mappings
 {
@@ -12,6 +12,7 @@ namespace WebTask.Mappings
         {
             CreateMap<LoginViewModel, UserDTO>().ReverseMap();
             CreateMap<RegisterViewModel, UserDTO>().ReverseMap();
+            CreateMap<UserIdentityViewModel, UserDTO>().ReverseMap();
             CreateMap<CreateUserViewModel, UserDTO>().ReverseMap();
             CreateMap<EditUserViewModel, UserDTO>().ReverseMap();
             CreateMap<UserViewModel, UserDTO>().ReverseMap();

@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using WebTask.EFData.Entities;
-using WebTask.Services.DTO;
-using WebTask.Services.Interfaces;
+using WebTask.Common;
+using WebTask.Infrastructure.Interfaces;
+using WebTask.InfrastructureDTO;
 using WebTask.ViewModels;
 
 namespace WebTask.Controllers

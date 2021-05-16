@@ -9,8 +9,8 @@ using WebTask.Mappings;
 using WebTask.Models;
 using WebTask.Services.Implementations;
 using WebTask.Services.Implementations.Identity;
-using WebTask.Services.Interfaces;
-using WebTask.Services.Interfaces.Identity;
+using WebTask.Infrastructure.Interfaces;
+using WebTask.Infrastructure.Interfaces.Identity;
 
 namespace WebTask
 {
@@ -34,11 +34,12 @@ namespace WebTask
             #region Services
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IRegisterService, RegisterService>();
+            services.AddTransient<IUserInfoService, UserInfoService>();
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IRoleService, RoleService>();
             #endregion
 
-            services.AddTransient<IDataRepository, EFDataRepository>();
+            services.AddTransient<IProductRepository, EFProductRepository>();
             services.AddControllersWithViews();
             services.AddAutoMapper (typeof(UserProfile).Assembly);
         }

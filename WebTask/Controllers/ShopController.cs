@@ -1,17 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebTask.Models;
+using WebTask.EFData;
 
 namespace WebTask.Controllers
 {
     public class ShopController : Controller
     {
-        private IDataRepository repository;
+        private IProductRepository repository;
 
-        public ShopController(IDataRepository repo)
+        public ShopController(IProductRepository repo)
         {
             repository = repo;
         }

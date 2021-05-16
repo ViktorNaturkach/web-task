@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebTask.EFData.Entities
+namespace WebTask.Common
 {
     public class User : IdentityUser
     {

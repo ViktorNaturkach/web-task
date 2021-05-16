@@ -2,14 +2,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using WebTask.EFData.Entities;
-using WebTask.Models;
-using WebTask.Services.DTO;
-using WebTask.Services.Interfaces;
+using WebTask.Common;
+using WebTask.Infrastructure.Interfaces;
+using WebTask.InfrastructureDTO;
 using WebTask.ViewModels;
 using WebTask.ViewModels.Identity.Users;
 

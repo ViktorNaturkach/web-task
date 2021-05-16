@@ -5,11 +5,15 @@ VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebTask", "WebTask\WebTask.csproj", "{32825C6E-08A3-4D73-BD3F-ABE50E5EC2A0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebTask.Domain", "WebTask.Domain\WebTask.Domain.csproj", "{1B88EEA8-9D14-456E-A762-7CEFD915FE71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebTask.Common", "WebTask.Domain\WebTask.Common.csproj", "{1B88EEA8-9D14-456E-A762-7CEFD915FE71}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebTask.EFData", "WebTask.EFData\WebTask.EFData.csproj", "{4A71DFE4-0FC1-4DCF-A81D-48248E9472EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTask.Services", "WebTask.Services\WebTask.Services.csproj", "{A509D001-F0DF-4567-845C-955E95E57DA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebTask.Infrastructure", "WebTask.Infrastructure\WebTask.Infrastructure.csproj", "{A509D001-F0DF-4567-845C-955E95E57DA4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebTask.Services", "WebTask.Services\WebTask.Services.csproj", "{44FF1ECE-E60E-4347-8EA2-D50DC205322F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTask.InfrastructureDTO", "WebTask.InfrastructureDTO\WebTask.InfrastructureDTO.csproj", "{627CB940-AB83-4FFB-9E8B-06610638124A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{A509D001-F0DF-4567-845C-955E95E57DA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A509D001-F0DF-4567-845C-955E95E57DA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A509D001-F0DF-4567-845C-955E95E57DA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44FF1ECE-E60E-4347-8EA2-D50DC205322F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44FF1ECE-E60E-4347-8EA2-D50DC205322F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44FF1ECE-E60E-4347-8EA2-D50DC205322F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44FF1ECE-E60E-4347-8EA2-D50DC205322F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{627CB940-AB83-4FFB-9E8B-06610638124A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{627CB940-AB83-4FFB-9E8B-06610638124A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{627CB940-AB83-4FFB-9E8B-06610638124A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{627CB940-AB83-4FFB-9E8B-06610638124A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
