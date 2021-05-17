@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebTask.Common;
+using WebTask.EFData.DbContexts.SeedData;
 using WebTask.Infrastructure;
 
 namespace WebTask.EFData
