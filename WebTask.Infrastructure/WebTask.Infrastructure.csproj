@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WebTask.Domain\WebTask.Common.csproj" />
-    <ProjectReference Include="..\WebTask.EFData\WebTask.EFData.csproj" />
     <ProjectReference Include="..\WebTask.InfrastructureDTO\WebTask.InfrastructureDTO.csproj" />
   </ItemGroup>
 

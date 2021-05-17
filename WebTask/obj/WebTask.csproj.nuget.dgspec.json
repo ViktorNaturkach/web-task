@@ -138,7 +138,7 @@
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[5.0.5, )"
+              "version": "[5.0.6, )"
             },
             "Microsoft.Extensions.DependencyInjection.Abstractions": {
               "target": "Package",
@@ -348,9 +348,6 @@
               "C:\\SWAN\\WEB-TASK\\WebTask.Domain\\WebTask.Common.csproj": {
                 "projectPath": "C:\\SWAN\\WEB-TASK\\WebTask.Domain\\WebTask.Common.csproj"
               },
-              "C:\\SWAN\\WEB-TASK\\WebTask.EFData\\WebTask.EFData.csproj": {
-                "projectPath": "C:\\SWAN\\WEB-TASK\\WebTask.EFData\\WebTask.EFData.csproj"
-              },
               "C:\\SWAN\\WEB-TASK\\WebTask.InfrastructureDTO\\WebTask.InfrastructureDTO.csproj": {
                 "projectPath": "C:\\SWAN\\WEB-TASK\\WebTask.InfrastructureDTO\\WebTask.InfrastructureDTO.csproj"
               },
@@ -370,6 +367,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.6, )"
@@ -465,7 +466,7 @@
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[5.0.5, )"
+              "version": "[5.0.6, )"
             },
             "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",

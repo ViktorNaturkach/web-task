@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using WebTask.Common;
 
-namespace WebTask.EFData
+namespace WebTask.Infrastructure
 {
     public interface IProductRepository
     {
-        IEnumerable<Product> GetProducts();
+        IEnumerable<Product> GetEFProducts();
     }
 }

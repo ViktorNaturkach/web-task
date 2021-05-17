@@ -1,16 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebTask.EFData;
 using WebTask.Mappings;
-using WebTask.Models;
-using WebTask.Services.Implementations;
-using WebTask.Services.Implementations.Identity;
-using WebTask.Infrastructure.Interfaces;
-using WebTask.Infrastructure.Interfaces.Identity;
+using WebTask.Services;
 
 namespace WebTask
 {
@@ -27,21 +22,12 @@ namespace WebTask
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddEFDataLayer(Configuration);
-   
-            services.AddDbContext<AppDbContext>(options =>
-                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            
-            #region Services
-            services.AddScoped<ILoginService, LoginService>();
-            services.AddScoped<IRegisterService, RegisterService>();
-            services.AddTransient<IUserInfoService, UserInfoService>();
-            services.AddScoped<IUsersService, UsersService>();
-            services.AddScoped<IRoleService, RoleService>();
-            #endregion
+            services.AddServicesLayer(Configuration);
 
-            services.AddTransient<IProductRepository, EFProductRepository>();
             services.AddControllersWithViews();
+ 
             services.AddAutoMapper (typeof(UserProfile).Assembly);
+            services.AddAutoMapper(typeof(ProductProfile).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

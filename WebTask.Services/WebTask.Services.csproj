@@ -5,18 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.6" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\WebTask.Domain\WebTask.Common.csproj" />
-    <ProjectReference Include="..\WebTask.EFData\WebTask.EFData.csproj" />
     <ProjectReference Include="..\WebTask.InfrastructureDTO\WebTask.InfrastructureDTO.csproj" />
     <ProjectReference Include="..\WebTask.Infrastructure\WebTask.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Implementations\Repo\" />
   </ItemGroup>
 
 </Project>
