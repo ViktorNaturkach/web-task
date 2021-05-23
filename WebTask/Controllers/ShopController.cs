@@ -20,7 +20,6 @@ namespace WebTask.Controllers
         public IActionResult Index()
         {
             var productsDTO = _productService.GetProducts();
-            //var model = _mapper.Map<ProductListViewModel>(productsDTO);
             var model = _mapper.Map<IEnumerable<ProductViewModel>>(productsDTO);
             return View(model);
         }

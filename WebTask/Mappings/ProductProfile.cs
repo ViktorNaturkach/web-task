@@ -9,7 +9,6 @@ namespace WebTask.Mappings
         public ProductProfile()
         {
             CreateMap<ProductViewModel, ProductDTO>().ReverseMap();
-            CreateMap<ProductListViewModel, ProductListDTO>().ReverseMap();
         }
     }
 }
