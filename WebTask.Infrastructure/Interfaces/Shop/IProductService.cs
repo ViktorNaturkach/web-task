@@ -6,6 +6,6 @@ namespace WebTask.Infrastructure.Interfaces.Shop
 {
     public interface IProductService
     {
-        ProductListDTO GetProducts();
+        IEnumerable<ProductDTO> GetProducts();
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using WebTask.Infrastructure;
 using WebTask.Infrastructure.Interfaces.Shop;
 using WebTask.InfrastructureDTO.DTO.Shop;
@@ -14,9 +15,9 @@ namespace WebTask.Services.Implementations.Shop
             _productRepository = productRepository;
         }
 
-        public ProductListDTO GetProducts()
+        public IEnumerable<ProductDTO> GetProducts()
         {
-            var productsList = from record in _productRepository.GetEFProducts().ToList()
+            var productsList = from record in _productRepository.GetEFProducts()
                             select new ProductDTO
                             {
                                 ProductID = record.ProductID,
@@ -27,8 +28,9 @@ namespace WebTask.Services.Implementations.Shop
                                 ImageSrc=record.ImageSrc
                                  
                             };
-            
-            return new ProductListDTO() { products = productsList.ToList() };
+
+            //return new ProductListDTO() { products = productsList };
+            return productsList;
 
         }
     }

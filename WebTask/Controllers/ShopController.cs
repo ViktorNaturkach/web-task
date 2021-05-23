@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using WebTask.Infrastructure.Interfaces.Shop;
 using WebTask.ViewModels.Shop;
 
@@ -19,8 +20,9 @@ namespace WebTask.Controllers
         public IActionResult Index()
         {
             var productsDTO = _productService.GetProducts();
-            var model = _mapper.Map<ProductListViewModel>(productsDTO);
-            return View(model.products);
+            //var model = _mapper.Map<ProductListViewModel>(productsDTO);
+            var model = _mapper.Map<IEnumerable<ProductViewModel>>(productsDTO);
+            return View(model);
         }
     }
 }

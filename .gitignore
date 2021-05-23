@@ -356,3 +356,5 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/.vs/WebTask/v16/.suo
+/WebTask/bin/*

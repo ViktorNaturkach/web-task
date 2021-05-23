@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using WebTask.Common;
 using WebTask.Infrastructure;
 
@@ -13,9 +14,9 @@ namespace WebTask.EFData
             context = ctx;
         }
 
-        public IEnumerable<Product> GetEFProducts()
+        public IQueryable<Product> GetEFProducts()
         {
-            return (IEnumerable<Product>)context.Products;
+            return context.Products;
         }
     }
 }
