@@ -7,16 +7,22 @@ namespace WebTask.EFData
 {
     public class EFProductRepository : IProductRepository
     {
-        private AppDbContext context;
+        private AppDbContext _context;
 
         public EFProductRepository(AppDbContext ctx)
         {
-            context = ctx;
+            _context = ctx;
         }
 
-        public IQueryable<Product> GetEFProducts()
+        public int GetEFAllProductsCount()
         {
-            return context.Products;
+            return _context.Products.Count();
+        }
+
+        public IQueryable<Product> GetEFProducts(int page, int itemsPerPage)
+        {
+            IQueryable<Product> products = _context.Products;
+            return  products.Take(page * itemsPerPage);
         }
     }
 }

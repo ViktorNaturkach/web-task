@@ -14,5 +14,6 @@ namespace WebTask.ViewModels.Shop
         public decimal SalePrice { get; set; }
         public string Category { get; set; }
         public string ImageSrc { get; set; }
+
     }
 }

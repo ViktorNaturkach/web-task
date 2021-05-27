@@ -6,6 +6,8 @@ namespace WebTask.Infrastructure
 {
     public interface IProductRepository
     {
-        IQueryable<Product> GetEFProducts();
+        int GetEFAllProductsCount();
+        IQueryable<Product> GetEFProducts(int page, int itemsPerPage);
+       
     }
 }

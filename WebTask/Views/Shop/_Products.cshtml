@@ -1,0 +1,54 @@
+﻿@model WebTask.ViewModels.Shop.IndexViewModel
+<div class="product-show-option">
+    <div class="row">
+        <div class="col-lg-7 col-md-7">
+            <div class="select-option">
+                <select class="sorting">
+                    <option value="">Default Sorting</option>
+                </select>
+                <select id="itemsPerPage" class="p-show">
+                    <option value="9">Show:9</option>
+                    <option value="12">Show:12</option>
+                    <option value="15">Show:15</option>
+                    <option value="18">Show:18</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-5 col-md-5 text-right">
+            <p>Show 01- @Model.LastProduct  Of @Model.TotalProducts Product</p>
+        </div>
+    </div>
+</div>
+<div class="product-list">
+    <div class="row">
+        @foreach (var p in Model.Products)
+        {
+            <div class="col-lg-4 col-sm-6">
+                <div class="product-item">
+                    <div class="pi-pic">
+                        <img src="~/img/products/@p.ImageSrc" alt="">
+                        <div class="sale pp-sale">Sale</div>
+                        <div class="icon">
+                            <i class="icon_heart_alt"></i>
+                        </div>
+                        <ul>
+                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                            <li class="quick-view"><a href="#">+ Quick View</a></li>
+                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="pi-text">
+                        <div class="catagory-name">@p.Category</div>
+                        <a href="#">
+                            <h5>@p.Name</h5>
+                        </a>
+                        <div class="product-price">
+                            $@p.SalePrice.ToString("F2")
+                            <span>$@p.Price.ToString("F2")</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

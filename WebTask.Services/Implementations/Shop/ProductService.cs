@@ -15,9 +15,14 @@ namespace WebTask.Services.Implementations.Shop
             _productRepository = productRepository;
         }
 
-        public IEnumerable<ProductDTO> GetProducts()
+        public int GetAllProductsCount()
         {
-            var productsList = from record in _productRepository.GetEFProducts()
+            return _productRepository.GetEFAllProductsCount();
+        }
+
+        public IEnumerable<ProductDTO> GetProducts(int page, int itemsPerPage)
+        {
+            var productsList = from record in _productRepository.GetEFProducts(page, itemsPerPage)
                             select new ProductDTO
                             {
                                 ProductID = record.ProductID,
@@ -28,8 +33,6 @@ namespace WebTask.Services.Implementations.Shop
                                 ImageSrc=record.ImageSrc
                                  
                             };
-
-            //return new ProductListDTO() { products = productsList };
             return productsList;
 
         }
