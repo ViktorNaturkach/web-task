@@ -13,6 +13,8 @@
   <ItemGroup>
     <Compile Include="Migrations\20210527181604_WebTaskInit.cs" />
     <Compile Include="Migrations\20210527181604_WebTaskInit.Designer.cs" />
+    <Compile Include="Migrations\20210527192655_Product_datetime.cs" />
+    <Compile Include="Migrations\20210527192655_Product_datetime.Designer.cs" />
     <Compile Include="Migrations\AppDbContextModelSnapshot.cs" />
   </ItemGroup>
 
