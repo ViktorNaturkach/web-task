@@ -12,14 +12,14 @@ namespace WebTask.EFData
     {
         public static IServiceCollection AddEFDataLayer(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<IdentityContext>(options =>
+            services.AddDbContext<AppDbContext>(options =>
                    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDbContext<AppDbContext>(options =>
                    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
             
             services.AddIdentity<User, IdentityRole>()
-                          .AddEntityFrameworkStores<IdentityContext>();
+                          .AddEntityFrameworkStores<AppDbContext>();
 
             services.AddScoped<IProductRepository, EFProductRepository>();
             return services;

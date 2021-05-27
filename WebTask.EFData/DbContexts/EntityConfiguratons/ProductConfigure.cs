@@ -4,7 +4,7 @@ using WebTask.Common;
 
 namespace WebTask.EFData.DbContexts.EntityConfiguratons
 {
-    public class ProductCinfigure : IEntityTypeConfiguration<Product>
+    public class ProductConfigure : IEntityTypeConfiguration<Product>
     {
     
 

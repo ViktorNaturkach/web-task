@@ -20,9 +20,9 @@ namespace WebTask.Services.Implementations.Shop
             return _productRepository.GetEFAllProductsCount();
         }
 
-        public IEnumerable<ProductDTO> GetProducts(int page, int itemsPerPage)
+        public IEnumerable<ProductDTO> GetProducts(int itemsCount, int itemsPerPage)
         {
-            var productsList = from record in _productRepository.GetEFProducts(page, itemsPerPage)
+            var productsList = from record in _productRepository.GetEFProducts(itemsCount, itemsPerPage)
                             select new ProductDTO
                             {
                                 ProductID = record.ProductID,

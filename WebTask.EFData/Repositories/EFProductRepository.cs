@@ -19,10 +19,10 @@ namespace WebTask.EFData
             return _context.Products.Count();
         }
 
-        public IQueryable<Product> GetEFProducts(int page, int itemsPerPage)
+        public IQueryable<Product> GetEFProducts(int itemsCount, int itemsPerPage)
         {
             IQueryable<Product> products = _context.Products;
-            return  products.Take(page * itemsPerPage);
+            return  products.Take(itemsCount + itemsPerPage);
         }
     }
 }

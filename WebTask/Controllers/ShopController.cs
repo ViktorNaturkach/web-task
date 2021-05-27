@@ -26,18 +26,15 @@ namespace WebTask.Controllers
 
 
         [HttpPost]
-        public IActionResult Products(int page = 1, int itemsPerPage = CommonConstants.ITEMS_PER_PAGE)
+        public IActionResult Products(int itemsCount = 0, int itemsPerPage = CommonConstants.ITEMS_PER_PAGE)
         {
-            var productsDTO = _productService.GetProducts(page, itemsPerPage);
+            var productsDTO = _productService.GetProducts(itemsCount, itemsPerPage);
             var products = _mapper.Map<IEnumerable<ProductViewModel>>(productsDTO);
             var count = _productService.GetAllProductsCount();
             var pagesCount = (int)Math.Ceiling(count / (double)itemsPerPage);
-            PageViewModel pageViewModel = new PageViewModel(page, pagesCount);
             IndexViewModel viewModel = new IndexViewModel
             {
-                LastProduct = (itemsPerPage * page < count) ? itemsPerPage * page : count,
                 TotalProducts = count,
-                PageViewModel = pageViewModel,
                 Products = products
             };
             return PartialView("_Products", viewModel);

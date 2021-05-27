@@ -18,7 +18,7 @@ namespace WebTask.EFData.DbContexts.SeedData
                 var serviceProvider = scope.ServiceProvider;
                 try
                 {
-                    var context = serviceProvider.GetRequiredService<IdentityContext>();
+                    var context = serviceProvider.GetRequiredService<AppDbContext>();
                     var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
                     var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
                     context.Database.Migrate();

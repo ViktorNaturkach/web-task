@@ -3,7 +3,7 @@
 });
 $('#btnLoadingMore').on('click', function (e) {
     var filters = {
-        page: "1",
+        itemsCount: $('#itemsCount').text(),
         itemsPerPage: $('#itemsPerPage').val()
     };
     GetStudents(filters);
