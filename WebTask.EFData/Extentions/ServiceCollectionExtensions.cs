@@ -13,11 +13,9 @@ namespace WebTask.EFData
         public static IServiceCollection AddEFDataLayer(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<AppDbContext>(options =>
-                   options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                   options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+                    o => o.MigrationsAssembly("WebTask.EFData")));
 
-            services.AddDbContext<AppDbContext>(options =>
-                   options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-            
             services.AddIdentity<User, IdentityRole>()
                           .AddEntityFrameworkStores<AppDbContext>();
 
