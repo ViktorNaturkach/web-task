@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebTask.Infrastructure.Interfaces;
 using WebTask.Infrastructure.Interfaces.Identity;
-using WebTask.ViewModels.Identity.Account;
+using WebTask.ViewModels.Identity.Auth;
 
 namespace WebTask.Components
 {

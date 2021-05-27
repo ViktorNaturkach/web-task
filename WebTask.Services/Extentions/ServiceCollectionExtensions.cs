@@ -19,8 +19,7 @@ namespace WebTask.Services
 
         public static IServiceCollection AddServicesLayer(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<ILoginService, LoginService>();
-            services.AddScoped<IRegisterService, RegisterService>();
+            services.AddScoped<IAuthService, AuthService>();
             services.AddTransient<IUserInfoService, UserInfoService>();
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IRoleService, RoleService>();

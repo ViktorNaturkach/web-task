@@ -1,4 +1,4 @@
-﻿@model WebTask.ViewModels.LoginViewModel
+﻿@model WebTask.ViewModels.Identity.Auth.LoginViewModel
 <!-- Register Section Begin -->
 <div class="register-login-section spad">
     <div class="container">
@@ -6,7 +6,7 @@
             <div class="col-lg-6 offset-lg-3">
                 <div class="login-form">
                     <h2>Login</h2>
-                    <form method="post" asp-controller="Account" asp-action="Login"
+                    <form method="post" asp-controller="Auth" asp-action="Login"
                           asp-route-returnUrl="@Model.ReturnUrl">
                         <div asp-validation-summary="ModelOnly"></div>
                         <div class="group-input">
@@ -32,7 +32,7 @@
                         <button type="submit" class="site-btn login-btn">Sign In</button>
                     </form>
                     <div class="switch-login">
-                        <a asp-action="Register" asp-controller="Account" class="or-login">Or Create An Account</a>
+                        <a asp-action="Register" asp-controller="Auth" class="or-login">Or Create An Account</a>
                     </div>
                 </div>
             </div>

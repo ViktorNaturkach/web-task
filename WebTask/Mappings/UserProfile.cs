@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using WebTask.ViewModels;
 using WebTask.ViewModels.Identity.Users;
-using WebTask.ViewModels.Identity.Account;
 using WebTask.InfrastructureDTO;
+using WebTask.ViewModels.Identity.Auth;
 
 namespace WebTask.Mappings
 {

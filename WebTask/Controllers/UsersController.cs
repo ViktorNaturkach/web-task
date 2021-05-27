@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebTask.Common;
 using WebTask.Infrastructure.Interfaces;
+using WebTask.Infrastructure.Interfaces.Identity;
 using WebTask.InfrastructureDTO;
 using WebTask.ViewModels;
 using WebTask.ViewModels.Identity.Users;
@@ -16,14 +17,14 @@ namespace WebTask.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IUsersService _usersService;
-        private readonly IRegisterService  _registerService;
+        private readonly IAuthService  _authService;
 
 
-        public UsersController(UserManager<User> userManager, IMapper mapper, IUsersService usersService, IRegisterService registerService)
+        public UsersController(UserManager<User> userManager, IMapper mapper, IUsersService usersService, IAuthService authService)
         {
             _mapper = mapper;
             _usersService = usersService;
-            _registerService = registerService;
+            _authService = authService;
         }
 
         public IActionResult Index()
@@ -41,7 +42,7 @@ namespace WebTask.Controllers
             if (ModelState.IsValid)
             {
                 var userDTO = _mapper.Map<UserDTO>(model);
-                var result = await _registerService.RegisterAsync(userDTO);
+                var result = await _authService.RegisterAsync(userDTO);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "Users");

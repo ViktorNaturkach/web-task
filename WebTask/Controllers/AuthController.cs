@@ -1,27 +1,21 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using WebTask.Common;
-using WebTask.Infrastructure.Interfaces;
+using WebTask.Infrastructure.Interfaces.Identity;
 using WebTask.InfrastructureDTO;
-using WebTask.ViewModels;
+using WebTask.ViewModels.Identity.Auth;
 
 namespace WebTask.Controllers
 {
-    public class AccountController : Controller
+    public class AuthController : Controller
     {
-        private readonly SignInManager<User> _signInManager;
-        private readonly ILoginService _loginService;
-        private readonly IRegisterService _registerService;
+        private readonly IAuthService _authService;
         private readonly IMapper _mapper;
 
-        public AccountController( SignInManager<User> signInManager, ILoginService loginService, IMapper mapper, IRegisterService registerService)
+        public AuthController(IMapper mapper, IAuthService authService)
         {
-            _signInManager = signInManager;
-            _loginService = loginService;
             _mapper = mapper;
-            _registerService = registerService;
+            _authService = authService;
         }
         [HttpGet]
         public IActionResult Register()
@@ -34,10 +28,10 @@ namespace WebTask.Controllers
             if (ModelState.IsValid)
             {
                 var userDTO = _mapper.Map<UserDTO>(model);
-                var result = await _registerService.RegisterAsync(userDTO);
+                var result = await _authService.RegisterAsync(userDTO);
                 if (result.Succeeded)
                 {
-                    await _loginService.LoginAsync(userDTO, false);
+                    await _authService.LoginAsync(userDTO, false);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -63,7 +57,7 @@ namespace WebTask.Controllers
             if (ModelState.IsValid)
             {
                 var userDTO = _mapper.Map<UserDTO>(model);
-                var result = await _loginService.LoginAsync(userDTO, model.RememberMe);
+                var result = await _authService.LoginAsync(userDTO, model.RememberMe);
 
                 if (result.Succeeded)
                 {
@@ -87,7 +81,7 @@ namespace WebTask.Controllers
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
+            await _authService.LogoutAsync();
             return RedirectToAction("Index", "Home");
         }
     }
