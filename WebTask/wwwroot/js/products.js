@@ -1,12 +1,25 @@
 ﻿$(function () {
     GetProducts();
 });
-$('#btnLoadingMore').on('click', function (e) {
-    var filters = {
-        itemsCount: $('#itemsCount').text(),
-        itemsPerPage: $('#itemsPerPage').val()
-    };
-    GetProducts(filters);
+$(document).ready(function () {
+    $("#pSort").on("change", function () {
+        var filters = {
+            itemsCount: $('#itemsCount').text(),
+            itemsPerPage: 0,
+            pSort: $('#pSort').val()
+        };
+        GetProducts(filters);
+    });
+});
+$(document).ready(function () {
+    $('#btnLoadingMore').on('click', function (e) {
+        var filters = {
+            itemsCount: $('#itemsCount').text(),
+            itemsPerPage: $('#itemsPerPage').val(),
+            pSort: $('#pSort').val()
+        };
+        GetProducts(filters);
+    });
 });
 function GetProducts(filters) {
     $.ajax({

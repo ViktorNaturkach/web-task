@@ -24,8 +24,4 @@
     <ProjectReference Include="..\WebTask.Services\WebTask.Services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Shared\Components\Shop\" />
-  </ItemGroup>
-
 </Project>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using WebTask.Common.Enums;
 using WebTask.Infrastructure;
 using WebTask.Infrastructure.Interfaces.Shop;
 using WebTask.InfrastructureDTO.DTO.Shop;
@@ -20,21 +21,18 @@ namespace WebTask.Services.Implementations.Shop
             return _productRepository.GetEFAllProductsCount();
         }
 
-        public IEnumerable<ProductDTO> GetProducts(int itemsCount, int itemsPerPage)
+        public IEnumerable<ProductDTO> GetProducts(int itemsCount, int itemsPerPage, PSort pSort)
         {
-            var productsList = from record in _productRepository.GetEFProducts(itemsCount, itemsPerPage)
-                            select new ProductDTO
-                            {
-                                ProductID = record.ProductID,
-                                Name = record.Name,
-                                Price = record.Price,
-                                SalePrice =record.SalePrice,
-                                Category=record.Category,
-                                ImageSrc=record.ImageSrc
-                                 
-                            };
+            var productsList = _productRepository.GetEFProducts(itemsCount, itemsPerPage, pSort).Select(record => new ProductDTO
+            {
+                ProductID = record.ProductID,
+                Name = record.Name,
+                Price = record.Price,
+                SalePrice = record.SalePrice,
+                Category = record.Category,
+                ImageSrc = record.ImageSrc
+            });
             return productsList;
-
         }
     }
 }

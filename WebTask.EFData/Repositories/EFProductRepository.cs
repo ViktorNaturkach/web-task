@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebTask.Common;
+using WebTask.Common.Enums;
 using WebTask.Infrastructure;
 
 namespace WebTask.EFData
@@ -19,10 +20,18 @@ namespace WebTask.EFData
             return _context.Products.Count();
         }
 
-        public IQueryable<Product> GetEFProducts(int itemsCount, int itemsPerPage)
+        public IQueryable<Product> GetEFProducts(int itemsCount, int itemsPerPage, PSort pSort)
         {
             IQueryable<Product> products = _context.Products;
-            return  products.Take(itemsCount + itemsPerPage);
+            products = pSort switch
+            {
+                PSort.PriceAsc => products.OrderBy(s => s.SalePrice),
+                PSort.PriceDesc => products.OrderByDescending(s => s.SalePrice),
+                PSort.DateAsc => products.OrderBy(s => s.DateCreated),
+                PSort.DateDesc => products.OrderByDescending(s => s.DateCreated),
+                _ => products.OrderBy(s => s.SaleEndDate),
+            };
+            return products.Take(itemsCount + itemsPerPage);
         }
     }
 }

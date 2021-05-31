@@ -1,4 +1,4 @@
-﻿@model WebTask.ViewModels.Shop.IndexViewModel
+﻿@using WebTask.Common.Enums
 @{
     ViewData["Title"] = "Products";
 }
@@ -148,14 +148,9 @@
                     <div class="row">
                         <div class="col-lg-7 col-md-7">
                             <div class="select-option">
-                                <select class="sorting">
-                                    <option value="">Default Sorting</option>
+                                <select id="pSort" asp-items="Html.GetEnumSelectList<PSort>()" class="sorting">
                                 </select>
-                                <select id="itemsPerPage" class="p-show">
-                                    <option value="9">Show 9</option>
-                                    <option value="18">Show 18</option>
-                                    <option value="36">Show 36</option>
-                                </select>
+                                <select id="itemsPerPage" asp-items="Html.GetEnumSelectList<PShow>()" class="p-show"></select>
                             </div>
                         </div>
                         <div class="col-lg-5 col-md-5 text-right">
@@ -176,5 +171,6 @@
 </section>
 <!-- Product Shop Section End -->
 <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/js/shopList.js"></script>
+<script src="~/js/products.js"></script>
+
 

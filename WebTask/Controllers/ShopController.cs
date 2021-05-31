@@ -5,6 +5,7 @@ using WebTask.Infrastructure.Interfaces.Shop;
 using WebTask.ViewModels.Shop;
 using WebTask.Common.Constants;
 using System;
+using WebTask.Common.Enums;
 
 namespace WebTask.Controllers
 {
@@ -26,12 +27,11 @@ namespace WebTask.Controllers
 
 
         [HttpPost]
-        public IActionResult Products(int itemsCount = 0, int itemsPerPage = CommonConstants.ITEMS_PER_PAGE)
+        public IActionResult Products(int itemsCount = 0, int itemsPerPage = CommonConstants.ITEMS_PER_PAGE, PSort pSort = CommonConstants.SORT_BY_DEFAULT)
         {
-            var productsDTO = _productService.GetProducts(itemsCount, itemsPerPage);
+            var productsDTO = _productService.GetProducts(itemsCount, itemsPerPage, pSort);
             var products = _mapper.Map<IEnumerable<ProductViewModel>>(productsDTO);
             var count = _productService.GetAllProductsCount();
-            var pagesCount = (int)Math.Ceiling(count / (double)itemsPerPage);
             IndexViewModel viewModel = new IndexViewModel
             {
                 TotalProducts = count,
