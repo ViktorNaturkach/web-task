@@ -1,14 +1,14 @@
 ﻿$(function () {
-    GetStudents();
+    GetProducts();
 });
 $('#btnLoadingMore').on('click', function (e) {
     var filters = {
         itemsCount: $('#itemsCount').text(),
         itemsPerPage: $('#itemsPerPage').val()
     };
-    GetStudents(filters);
+    GetProducts(filters);
 });
-function GetStudents(filters) {
+function GetProducts(filters) {
     $.ajax({
         url: '/Shop/Products',
         type: 'POST',
@@ -19,6 +19,12 @@ function GetStudents(filters) {
     })
         .done(function (result) {
             $('#products').html(result);
+            var products = {
+                newItemsCount: $("#newItemsCount").val(),
+                newProductsCount: $("#newProductsCount").val()
+            }
+            $("#itemsCount").text(products.newItemsCount);
+            $("#productsCount").text(products.newProductsCount);
         }).fail(function (xhr) {
             console.log('error : ' + xhr.status + ' - '
                 + xhr.statusText + ' - ' + xhr.responseText);
