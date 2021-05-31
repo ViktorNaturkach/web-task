@@ -15,5 +15,6 @@ namespace WebTask.ViewModels
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
+        public List<string> Roles { get; set; }
     }
 }

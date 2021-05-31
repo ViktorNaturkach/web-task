@@ -1,24 +1,6 @@
 ﻿@model WebTask.ViewModels.Shop.IndexViewModel
-<div class="product-show-option">
-    <div class="row">
-        <div class="col-lg-7 col-md-7">
-            <div class="select-option">
-                <select class="sorting">
-                    <option value="">Default Sorting</option>
-                </select>
-                <select id="itemsPerPage" class="p-show">
-                    <option value="9">Show:9</option>
-                    <option value="12">Show:12</option>
-                    <option value="15">Show:15</option>
-                    <option value="18">Show:18</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-lg-5 col-md-5 text-right">
-            <p>Show 01- <span id="itemsCount">@Model.Products.Count()</span>  Of @Model.TotalProducts Product</p>
-        </div>
-    </div>
-</div>
+<input type="hidden" id="newItemsCount" value=@Model.Products.Count()>
+<input type="hidden" id="newProductsCount" value=@Model.TotalProducts>
 <div class="product-list">
     <div class="row">
         @foreach (var p in Model.Products)

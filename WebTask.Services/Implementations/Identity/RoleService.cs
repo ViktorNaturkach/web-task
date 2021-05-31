@@ -8,6 +8,7 @@ using WebTask.Infrastructure.Interfaces.Identity;
 using WebTask.Common;
 using System.Threading.Tasks;
 using WebTask.InfrastructureDTO;
+using WebTask.InfrastructureDTO.DTO.Identity;
 
 namespace WebTask.Services.Implementations.Identity
 {
@@ -20,6 +21,21 @@ namespace WebTask.Services.Implementations.Identity
         {
             _userManager = userManager;
             _roleManager = roleManager;
+        }
+
+        public async Task<IdentityResult> CreateRoleAsync(RoleDTO role)
+        {
+            return await _roleManager.CreateAsync(new IdentityRole(role.Name));
+        }
+
+        public async Task<IdentityResult> DeleteRoleAsync(string id)
+        {
+            IdentityRole role = await _roleManager.FindByIdAsync(id);
+            if (role != null)
+            {
+                return await _roleManager.DeleteAsync(role);
+            }
+            return IdentityResult.Failed(new IdentityError() { Description = "Role not found!" });
         }
 
         public async Task<bool> EditUserRoles(string userId, List<string> roles)
@@ -40,6 +56,15 @@ namespace WebTask.Services.Implementations.Identity
             }
 
             return false;
+        }
+
+        public IEnumerable<RoleDTO> GetIdentityRoles()
+        {
+            return _roleManager.Roles.Select(item => new RoleDTO
+            {
+                Id = item.Id,
+                Name = item.Name
+            });
         }
 
         public async Task<ChangeRoleDTO> GetUserRoles(string id)

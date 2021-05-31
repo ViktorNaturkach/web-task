@@ -144,6 +144,25 @@
                 </div>
             </div>
             <div class="col-lg-9 order-1 order-lg-2">
+                <div class="product-show-option">
+                    <div class="row">
+                        <div class="col-lg-7 col-md-7">
+                            <div class="select-option">
+                                <select class="sorting">
+                                    <option value="">Default Sorting</option>
+                                </select>
+                                <select id="itemsPerPage" class="p-show">
+                                    <option value="9">Show 9</option>
+                                    <option value="18">Show 18</option>
+                                    <option value="36">Show 36</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-md-5 text-right">
+                            <p>Show 01- <span id="itemsCount">9</span>  Of <span id="productsCount"></span> Product</p>
+                        </div>
+                    </div>
+                </div>
                 <div id="products"></div>
                 <div class="loading-more">
                     <i class="icon_loading"></i>
@@ -156,5 +175,6 @@
     </div>
 </section>
 <!-- Product Shop Section End -->
-<script type="text/javascript" src="/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/js/shop.js"></script>
+<script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/shopList.js"></script>
+

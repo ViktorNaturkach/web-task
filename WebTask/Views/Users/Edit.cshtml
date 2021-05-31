@@ -12,6 +12,13 @@
         <input type="text" asp-for="Email" class="form-control" />
     </div>
     <div class="form-group">
+        @foreach (var role in Model.AllRoles)
+        {
+            <input type="checkbox" name="roles" value="@role"
+                   @(Model.Roles.Contains(role) ? "checked=\"checked\"" : "") />@role <br />
+            }
+    </div>
+    <div class="form-group">
         <input type="submit" value="Save" class="btn btn-outline-secondary" />
     </div>
 </form>

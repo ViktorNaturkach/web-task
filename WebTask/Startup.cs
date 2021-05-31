@@ -27,6 +27,7 @@ namespace WebTask
             services.AddControllersWithViews();
  
             services.AddAutoMapper (typeof(UserProfile).Assembly);
+            services.AddAutoMapper(typeof(RoleProfile).Assembly);
             services.AddAutoMapper(typeof(ProductProfile).Assembly);
         }
 

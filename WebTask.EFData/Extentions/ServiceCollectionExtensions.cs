@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,7 +19,12 @@ namespace WebTask.EFData
 
             services.AddIdentity<User, IdentityRole>()
                           .AddEntityFrameworkStores<AppDbContext>();
-
+            services.ConfigureApplicationCookie((options) =>
+            {
+                options.LoginPath = "/Auth/Login";
+                options.LogoutPath = "/Auth/Logout";
+                options.AccessDeniedPath = "/Home/Error";
+            });
             services.AddScoped<IProductRepository, EFProductRepository>();
             return services;
         }

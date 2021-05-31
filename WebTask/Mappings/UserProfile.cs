@@ -16,8 +16,6 @@ namespace WebTask.Mappings
             CreateMap<CreateUserViewModel, UserDTO>().ReverseMap();
             CreateMap<EditUserViewModel, UserDTO>().ReverseMap();
             CreateMap<UserViewModel, UserDTO>().ReverseMap();
-            CreateMap<UsersListViewModel, UsersListDTO>().ReverseMap();
-            CreateMap<ChangeRoleViewModel,ChangeRoleDTO>().ReverseMap();
-        }
+       }
     }
 }

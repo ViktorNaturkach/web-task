@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using WebTask.Common;
 using WebTask.Infrastructure.Interfaces;
@@ -12,29 +14,32 @@ using WebTask.ViewModels.Identity.Users;
 
 namespace WebTask.Controllers
 {
-    [Authorize(Roles = "Administrators")]
+    [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
         private readonly IMapper _mapper;
         private readonly IUsersService _usersService;
-        private readonly IAuthService  _authService;
-
-
-        public UsersController(UserManager<User> userManager, IMapper mapper, IUsersService usersService, IAuthService authService)
+        private readonly IRoleService _roleService;
+            public UsersController(IMapper mapper, IUsersService usersService, IRoleService roleService)
         {
             _mapper = mapper;
             _usersService = usersService;
-            _authService = authService;
+            _roleService = roleService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var usersDTO = _usersService.GetUsers();
-            var model = _mapper.Map<UsersListViewModel>(usersDTO);
-            return View(model.users);
+            var usersDTO = await _usersService.GetUsers();
+            var model = _mapper.Map<IEnumerable<UserViewModel>>(usersDTO);
+            return View(model);
         }
 
-        public IActionResult Create() => View();
+        public IActionResult Create()
+        {
+            var model = new CreateUserViewModel();
+            model.Roles =  _roleService.GetIdentityRoles().Select(x => x.Name).ToList();
+            return View(model);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateUserViewModel model)
@@ -42,7 +47,7 @@ namespace WebTask.Controllers
             if (ModelState.IsValid)
             {
                 var userDTO = _mapper.Map<UserDTO>(model);
-                var result = await _authService.RegisterAsync(userDTO);
+                var result = await _usersService.CreateUserAsync(userDTO);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "Users");
@@ -66,6 +71,7 @@ namespace WebTask.Controllers
                 return NotFound();
             }
             EditUserViewModel model = _mapper.Map<EditUserViewModel>(user);
+            model.AllRoles = _roleService.GetIdentityRoles().Select(x => x.Name).ToList();
             return View(model);
         }
 

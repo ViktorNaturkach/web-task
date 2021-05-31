@@ -2,45 +2,42 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using WebTask.Common;
 using WebTask.Infrastructure.Interfaces;
 using WebTask.Infrastructure.Interfaces.Identity;
-using WebTask.InfrastructureDTO;
-using WebTask.ViewModels;
-using WebTask.ViewModels.Identity.Users;
+using WebTask.InfrastructureDTO.DTO.Identity;
+using WebTask.ViewModels.Identity.Roles;
 
 namespace WebTask.Controllers
 {
-    [Authorize(Roles = "Administrators")]
+    [Authorize(Roles = "Admin")]
     public class RolesController : Controller
     {
         private readonly IMapper _mapper;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly UserManager<User> _userManager;
         private readonly IRoleService _roleService;
-        private readonly IUsersService _usersService;
-
-        public RolesController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager, IMapper mapper, IRoleService roleService, IUsersService usersService)
+        public RolesController(IMapper mapper, IRoleService roleService)
         {
-            _roleManager = roleManager;
-            _userManager = userManager;
             _mapper = mapper;
             _roleService = roleService;
-            _usersService = usersService;
         }
-        public IActionResult Index() => View(_roleManager.Roles.ToList());
+
+        public IActionResult Index()
+        {
+            var rolesDTO = _roleService.GetIdentityRoles();
+            var model = _mapper.Map<IEnumerable<RoleViewModel>>(rolesDTO);
+            return View(model);
+        }
 
         public IActionResult Create() => View();
         [HttpPost]
-        public async Task<IActionResult> Create(string name)
+        public async Task<IActionResult> Create(CreateRoleViewModel model)
         {
-            if (!string.IsNullOrEmpty(name))
+            if (ModelState.IsValid)
             {
-                IdentityResult result = await _roleManager.CreateAsync(new IdentityRole(name));
+                var roleDTO = _mapper.Map<RoleDTO>(model);
+                var result = await _roleService.CreateRoleAsync(roleDTO);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index");
@@ -53,47 +50,25 @@ namespace WebTask.Controllers
                     }
                 }
             }
-            return View(name);
+            return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
-            IdentityRole role = await _roleManager.FindByIdAsync(id);
-            if (role != null)
+            var result = await _roleService.DeleteRoleAsync(id);
+            if (result.Succeeded)
             {
-                IdentityResult result = await _roleManager.DeleteAsync(role);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
             }
             return RedirectToAction("Index");
-        }
-
-        public IActionResult UserList()
-        {
-            var usersDTO = _usersService.GetUsers();
-            var model = _mapper.Map<UsersListViewModel>(usersDTO);
-            return View(model.users);
-        }
-
-        public async Task<IActionResult> Edit(string userId)
-        {
-            ChangeRoleDTO user = await _roleService.GetUserRoles(userId);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            ChangeRoleViewModel model = _mapper.Map<ChangeRoleViewModel>(user);
-            return View(model);
-        }
-        [HttpPost]
-        public async Task<IActionResult> Edit(string userId, List<string> roles)
-        {
-            var result = await _roleService.EditUserRoles(userId,roles);
-            if (result)
-            {
-                return RedirectToAction("UserList");
-            }
-
-            return NotFound();
         }
     }
 }
