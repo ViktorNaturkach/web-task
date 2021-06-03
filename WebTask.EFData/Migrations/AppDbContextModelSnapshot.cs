@@ -150,20 +150,54 @@ namespace WebTask.EFData.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("ProductProductSize", b =>
+                {
+                    b.Property<int>("ProductsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SizesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductsId", "SizesId");
+
+                    b.HasIndex("SizesId");
+
+                    b.ToTable("ProductProductSize");
+                });
+
+            modelBuilder.Entity("WebTask.Common.Entities.ProductSize", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("size_id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("varchar(5)")
+                        .HasColumnName("size_name")
+                        .HasDefaultValueSql("('')");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("productSizes");
+                });
+
             modelBuilder.Entity("WebTask.Common.Product", b =>
                 {
-                    b.Property<int>("ProductID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("prod_id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Brand")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("varchar(60)")
-                        .HasColumnName("prod_brand")
-                        .HasDefaultValueSql("('')");
 
                     b.Property<string>("Category")
                         .IsRequired()
@@ -172,14 +206,7 @@ namespace WebTask.EFData.Migrations
                         .HasColumnName("prod_category")
                         .HasDefaultValueSql("('')");
 
-                    b.Property<string>("Color")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("varchar(300)")
-                        .HasColumnName("prod_color")
-                        .HasDefaultValueSql("('')");
-
-                    b.Property<DateTime>("DateCreated")
+                    b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
                         .HasColumnName("prod_datecreated")
@@ -198,6 +225,9 @@ namespace WebTask.EFData.Migrations
                         .HasColumnType("varchar(300)")
                         .HasColumnName("prod_imgsrc")
                         .HasDefaultValueSql("('')");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -224,21 +254,14 @@ namespace WebTask.EFData.Migrations
                         .HasColumnName("prod_saleprice")
                         .HasDefaultValueSql("(0)");
 
-                    b.Property<string>("Size")
+                    b.Property<string>("Type")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("varchar(300)")
-                        .HasColumnName("prod_size")
+                        .HasColumnType("varchar(60)")
+                        .HasColumnName("prod_type")
                         .HasDefaultValueSql("('')");
 
-                    b.Property<string>("Tag")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("varchar(300)")
-                        .HasColumnName("prod_tag")
-                        .HasDefaultValueSql("('')");
-
-                    b.HasKey("ProductID");
+                    b.HasKey("Id");
 
                     b.ToTable("products");
                 });
@@ -355,6 +378,21 @@ namespace WebTask.EFData.Migrations
                     b.HasOne("WebTask.Common.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ProductProductSize", b =>
+                {
+                    b.HasOne("WebTask.Common.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebTask.Common.Entities.ProductSize", null)
+                        .WithMany()
+                        .HasForeignKey("SizesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

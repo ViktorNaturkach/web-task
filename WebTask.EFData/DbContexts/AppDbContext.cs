@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WebTask.Common;
+using WebTask.Common.Entities;
 using WebTask.EFData.DbContexts.EntityConfiguratons;
 
 namespace WebTask.EFData
@@ -16,7 +17,9 @@ namespace WebTask.EFData
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new ProductConfigure());
+            modelBuilder.ApplyConfiguration(new ProductSizeConfigure());
         }
 		public DbSet<Product> Products { get; set; }
+        public DbSet<ProductSize> Sizes { get; set; }
     }
 }

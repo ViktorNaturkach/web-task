@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using WebTask.Common.Enums;
 using WebTask.Infrastructure;
 using WebTask.Infrastructure.Interfaces.Shop;
@@ -16,23 +18,23 @@ namespace WebTask.Services.Implementations.Shop
             _productRepository = productRepository;
         }
 
-        public int GetAllProductsCount()
+        public async Task<int> GetAllProductsCount()
         {
-            return _productRepository.GetEFAllProductsCount();
+            return await _productRepository.CountAllAsync();
         }
 
-        public IEnumerable<ProductDTO> GetProducts(int itemsCount, int itemsPerPage, PSort pSort)
+        public async Task<IEnumerable<ProductDTO>> GetProductsAsync(int itemsCount, int itemsPerPage, PSort pSort)
         {
-            var productsList = _productRepository.GetEFProducts(itemsCount, itemsPerPage, pSort).Select(record => new ProductDTO
+            var productsList = _productRepository.GetProductsWhereAsync(itemsCount, itemsPerPage, pSort).Select (record => new ProductDTO
             {
-                ProductID = record.ProductID,
+                Id = record.Id,
                 Name = record.Name,
                 Price = record.Price,
                 SalePrice = record.SalePrice,
-                Category = record.Category,
                 ImageSrc = record.ImageSrc
             });
-            return productsList;
+            return await productsList.ToListAsync();
         }
+
     }
 }

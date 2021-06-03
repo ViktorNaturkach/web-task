@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebTask.EFData.Migrations
 {
-    public partial class WebTaskInit : Migration
+    public partial class InitWebTask : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -52,22 +52,35 @@ namespace WebTask.EFData.Migrations
                 {
                     prod_id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    prod_datecreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValueSql: "(sysdatetimeoffset())"),
-                    prod_name = table.Column<string>(type: "varchar(60)", nullable: false, defaultValueSql: "('')"),
                     prod_description = table.Column<string>(type: "varchar(100)", nullable: false, defaultValueSql: "('')"),
                     prod_price = table.Column<decimal>(type: "decimal(7,2)", nullable: false, defaultValueSql: "(0)"),
                     prod_saleprice = table.Column<decimal>(type: "decimal(7,2)", nullable: false, defaultValueSql: "(0)"),
-                    prod_saleenddate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValueSql: "(sysdatetimeoffset())"),
+                    prod_saleenddate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "(sysdatetime())"),
+                    prod_imgsrc = table.Column<string>(type: "varchar(300)", nullable: false, defaultValueSql: "('')"),
                     prod_category = table.Column<string>(type: "varchar(60)", nullable: false, defaultValueSql: "('')"),
-                    prod_brand = table.Column<string>(type: "varchar(60)", nullable: false, defaultValueSql: "('')"),
-                    prod_tag = table.Column<string>(type: "varchar(300)", nullable: false, defaultValueSql: "('')"),
-                    prod_color = table.Column<string>(type: "varchar(300)", nullable: false, defaultValueSql: "('')"),
-                    prod_size = table.Column<string>(type: "varchar(300)", nullable: false, defaultValueSql: "('')"),
-                    prod_imgsrc = table.Column<string>(type: "varchar(300)", nullable: false, defaultValueSql: "('')")
+                    prod_type = table.Column<string>(type: "varchar(60)", nullable: false, defaultValueSql: "('')"),
+                    prod_name = table.Column<string>(type: "varchar(60)", nullable: false, defaultValueSql: "('')"),
+                    prod_datecreated = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "(sysdatetime())"),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_products", x => x.prod_id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "productSizes",
+                columns: table => new
+                {
+                    size_id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    size_name = table.Column<string>(type: "varchar(5)", nullable: false, defaultValueSql: "('')"),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_productSizes", x => x.size_id);
                 });
 
             migrationBuilder.CreateTable(
@@ -176,6 +189,30 @@ namespace WebTask.EFData.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ProductProductSize",
+                columns: table => new
+                {
+                    ProductsId = table.Column<int>(type: "int", nullable: false),
+                    SizesId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductProductSize", x => new { x.ProductsId, x.SizesId });
+                    table.ForeignKey(
+                        name: "FK_ProductProductSize_products_ProductsId",
+                        column: x => x.ProductsId,
+                        principalTable: "products",
+                        principalColumn: "prod_id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductProductSize_productSizes_SizesId",
+                        column: x => x.SizesId,
+                        principalTable: "productSizes",
+                        principalColumn: "size_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -214,6 +251,11 @@ namespace WebTask.EFData.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductProductSize_SizesId",
+                table: "ProductProductSize",
+                column: "SizesId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -234,13 +276,19 @@ namespace WebTask.EFData.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "products");
+                name: "ProductProductSize");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "products");
+
+            migrationBuilder.DropTable(
+                name: "productSizes");
         }
     }
 }

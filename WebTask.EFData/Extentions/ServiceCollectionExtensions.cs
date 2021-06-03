@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebTask.Common;
 using WebTask.EFData.DbContexts.SeedData;
+using WebTask.EFData.Repositories;
 using WebTask.Infrastructure;
 
 namespace WebTask.EFData
@@ -25,6 +26,7 @@ namespace WebTask.EFData
                 options.LogoutPath = "/Auth/Logout";
                 options.AccessDeniedPath = "/Home/Error";
             });
+            services.AddScoped(typeof(IBaseRepository<>), typeof(EFBaseRepository<>));
             services.AddScoped<IProductRepository, EFProductRepository>();
             return services;
         }

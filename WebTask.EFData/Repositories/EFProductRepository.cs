@@ -1,37 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 using WebTask.Common;
 using WebTask.Common.Enums;
+using WebTask.EFData.Repositories;
 using WebTask.Infrastructure;
 
 namespace WebTask.EFData
 {
-    public class EFProductRepository : IProductRepository
+    public class EFProductRepository : EFBaseRepository<Product>, IProductRepository
     {
-        private AppDbContext _context;
-
-        public EFProductRepository(AppDbContext ctx)
+        public EFProductRepository(AppDbContext context) : base(context)
         {
-            _context = ctx;
         }
-
-        public int GetEFAllProductsCount()
+        public IQueryable<Product> GetProductsWhereAsync(int itemsCount, int itemsPerPage, PSort pSort)
         {
-            return _context.Products.Count();
-        }
-
-        public IQueryable<Product> GetEFProducts(int itemsCount, int itemsPerPage, PSort pSort)
-        {
-            IQueryable<Product> products = _context.Products;
+            var products = GetAll().Take(itemsCount + itemsPerPage);
             products = pSort switch
             {
                 PSort.PriceAsc => products.OrderBy(s => s.SalePrice),
                 PSort.PriceDesc => products.OrderByDescending(s => s.SalePrice),
-                PSort.DateAsc => products.OrderBy(s => s.DateCreated),
-                PSort.DateDesc => products.OrderByDescending(s => s.DateCreated),
+                PSort.DateAsc => products.OrderBy(s => s.CreatedDate),
+                PSort.DateDesc => products.OrderByDescending(s => s.CreatedDate),
                 _ => products.OrderBy(s => s.SaleEndDate),
             };
-            return products.Take(itemsCount + itemsPerPage);
+
+            return  products;
         }
     }
 }
