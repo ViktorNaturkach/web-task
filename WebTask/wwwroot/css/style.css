@@ -1619,7 +1619,7 @@ ol {
 	color: #b2b2b2;
 }
 
-.newslatter-item .subscribe-form input::-ms-input-placeholder {
+.newslatter-item .subscribe-form input:-ms-input-placeholder {
 	color: #b2b2b2;
 }
 
@@ -1738,49 +1738,21 @@ ol {
 	font-size: 16px;
 	line-height: 39px;
 }
-
-.filter-widget .fw-brand-check .bc-item {
-	margin-bottom: 3px;
+.filter-widget .filter-catagories li a:hover, .filter-widget .filter-catagories li a.selected {
+	color: #e7ab3c;
 }
-
-.filter-widget .fw-brand-check .bc-item label {
-	position: relative;
-	cursor: pointer;
-	padding-left: 28px;
+.filter-widget .filter-types li {
+	list-style: none;
 }
-
-.filter-widget .fw-brand-check .bc-item label input {
-	position: absolute;
-	visibility: hidden;
+.filter-widget .filter-types li a {
+	display: inline-block;
+	color: #636363;
+	font-size: 16px;
+	line-height: 39px;
 }
-
-.filter-widget .fw-brand-check .bc-item label input:checked~span {
-	background: #e7ab3c;
-	border-color: #e7ab3c;
+.filter-widget .filter-types li a:hover, .filter-widget .filter-types li a.selected {
+	color: #e7ab3c;
 }
-
-.filter-widget .fw-brand-check .bc-item label .checkmark {
-	position: absolute;
-	left: 0;
-	top: 5px;
-	height: 15px;
-	width: 15px;
-	border: 2px solid #ebebeb;
-	border-radius: 2px;
-}
-
-.filter-widget .fw-brand-check .bc-item label .checkmark:after {
-	left: 0;
-	top: 0;
-	width: 10px;
-	height: 8px;
-	border: solid white;
-	border-width: 3px 3px 0px 0px;
-	-webkit-transform: rotate(127deg);
-	-ms-transform: rotate(127deg);
-	transform: rotate(127deg);
-}
-
 .filter-widget .filter-range-wrap {
 	margin-bottom: 40px;
 }

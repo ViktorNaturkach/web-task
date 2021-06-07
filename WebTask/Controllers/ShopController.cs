@@ -7,6 +7,8 @@ using WebTask.Common.Constants;
 using System;
 using WebTask.Common.Enums;
 using System.Threading.Tasks;
+using WebTask.InfrastructureDTO.DTO.Shop;
+using Newtonsoft.Json;
 
 namespace WebTask.Controllers
 {
@@ -28,15 +30,18 @@ namespace WebTask.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Products(int itemsCount = 0, int itemsPerPage = CommonConstants.ITEMS_PER_PAGE, PSort pSort = CommonConstants.SORT_BY_DEFAULT)
+        public async Task<IActionResult> Products(ProductFilterDTO filters)
         {
-            
-            var productsDTO = await _productService.GetProductsAsync(itemsCount, itemsPerPage, pSort);
-            var count = await _productService.GetAllProductsCount();
+            var productsDTO = await _productService.GetProductsAsync(filters);
+            var count = await _productService.GetProductsCountWhereAsync(filters);
+            var minPrice = await _productService.GetMinProductPriceAsync(filters);
+            var maxPrice = await _productService.GetMaxProductPriceAsync(filters);
             var products = _mapper.Map<IEnumerable<ProductViewModel>>(productsDTO);
             IndexViewModel viewModel =  new IndexViewModel
             {
                 TotalProducts = count,
+                MinPrice = (int) Math.Floor(minPrice),
+                MaxPrice = (int) Math.Ceiling(maxPrice),
                 Products = products
             };
             return PartialView("_Products", viewModel);

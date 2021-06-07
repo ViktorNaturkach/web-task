@@ -21,8 +21,10 @@ namespace WebTask.EFData.Repositories
 
         public async Task<int> CountAllAsync() => await _context.Set<T>().CountAsync();
 
-        public async Task<int> CountWhereAsync(Expression<Func<T, bool>> expression) => await _context.Set<T>().CountAsync(expression);
-
+        public async Task<int> CountWhereAsync(Expression<Func<T, bool>> expression)
+        {
+            return await _context.Set<T>().CountAsync(expression);
+        }
         public IQueryable<T> GetAll() => _context.Set<T>().AsNoTracking();
 
         public IQueryable<T> GetWhere(Expression<Func<T, bool>> expression) => _context.Set<T>()

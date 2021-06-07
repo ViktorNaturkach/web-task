@@ -12,7 +12,7 @@ namespace WebTask.Components
         private readonly IMapper _mapper;
         private readonly IUserInfoService _userInfoService;
 
-        public LoginStatus(IUsersService usersService, IUserInfoService userInfoService, IMapper mapper)
+        public LoginStatus(IUserInfoService userInfoService, IMapper mapper)
         {
             _userInfoService = userInfoService;
             _mapper = mapper;

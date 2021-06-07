@@ -7,7 +7,7 @@ using WebTask.Common.Enums;
 
 namespace WebTask.Common.Constants
 {
-    public class CommonConstants
+    public static class ProductFilterConstans
     {
         public const int ITEMS_PER_PAGE = 9;
         public const PSort SORT_BY_DEFAULT = PSort.Promotional;

@@ -14,8 +14,9 @@ namespace WebTask.Common
         public decimal SalePrice { get; set; }
         public DateTime SaleEndDate { get; set; }
         public string ImageSrc { get; set; }
-        public string Category { get; set; }
-        public string Type { get; set; }
+
+        public Category Category { get; set; }
+        public ProductType ProductType { get; set; }
         public virtual ICollection<ProductSize> Sizes { get; set; }
     }
 }

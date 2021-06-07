@@ -24,7 +24,8 @@ namespace WebTask.Services
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IProductService, ProductService>();
-
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ITypeService, TypeService>();
             return services;
         }
     }

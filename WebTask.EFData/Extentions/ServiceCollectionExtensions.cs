@@ -7,6 +7,7 @@ using WebTask.Common;
 using WebTask.EFData.DbContexts.SeedData;
 using WebTask.EFData.Repositories;
 using WebTask.Infrastructure;
+using WebTask.Infrastructure.Interfaces.Repository;
 
 namespace WebTask.EFData
 {
@@ -28,6 +29,8 @@ namespace WebTask.EFData
             });
             services.AddScoped(typeof(IBaseRepository<>), typeof(EFBaseRepository<>));
             services.AddScoped<IProductRepository, EFProductRepository>();
+            services.AddScoped<ICategoryRepository, EFCategoryRepository>();
+            services.AddScoped<ITypeRepository, EFTypeRepository>();
             return services;
         }
 

@@ -24,11 +24,14 @@ namespace WebTask
             services.AddEFDataLayer(Configuration);
             services.AddServicesLayer(Configuration);
 
-            services.AddControllersWithViews();
+            services.AddMvc();
  
             services.AddAutoMapper (typeof(UserProfile).Assembly);
             services.AddAutoMapper(typeof(RoleProfile).Assembly);
             services.AddAutoMapper(typeof(ProductProfile).Assembly);
+            services.AddAutoMapper(typeof(CategoryProfile).Assembly);
+            services.AddAutoMapper(typeof(TypeProfile).Assembly);
+            services.AddAutoMapper(typeof(SizeProfile).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

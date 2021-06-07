@@ -9,7 +9,9 @@ namespace WebTask.Infrastructure.Interfaces.Shop
 {
     public interface IProductService
     {
-        Task<int> GetAllProductsCount();
-        Task<IEnumerable<ProductDTO>> GetProductsAsync(int itemsCount, int itemsPerPage, PSort pSort);
+        Task<int> GetProductsCountWhereAsync(ProductFilterDTO filter);
+        Task<IEnumerable<ProductDTO>> GetProductsAsync(ProductFilterDTO filter);
+        Task<decimal> GetMinProductPriceAsync(ProductFilterDTO filter);
+        Task<decimal> GetMaxProductPriceAsync(ProductFilterDTO filter);
     }
 }

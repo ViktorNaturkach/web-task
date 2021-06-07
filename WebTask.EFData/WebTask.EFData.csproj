@@ -13,6 +13,12 @@
   <ItemGroup>
     <Compile Include="Migrations\20210602200648_InitWebTask.cs" />
     <Compile Include="Migrations\20210602200648_InitWebTask.Designer.cs" />
+    <Compile Include="Migrations\20210603194721_Categories.cs" />
+    <Compile Include="Migrations\20210603194721_Categories.Designer.cs" />
+    <Compile Include="Migrations\20210603204444_ProductRelations.cs" />
+    <Compile Include="Migrations\20210603204444_ProductRelations.Designer.cs" />
+    <Compile Include="Migrations\20210605121915_ChangeNameSize.cs" />
+    <Compile Include="Migrations\20210605121915_ChangeNameSize.Designer.cs" />
     <Compile Include="Migrations\AppDbContextModelSnapshot.cs" />
   </ItemGroup>
 

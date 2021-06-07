@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebTask.EFData;
 
 namespace WebTask.EFData.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210603194721_Categories")]
+    partial class Categories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -150,6 +152,21 @@ namespace WebTask.EFData.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("ProductProductSize", b =>
+                {
+                    b.Property<int>("ProductsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SizesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductsId", "SizesId");
+
+                    b.HasIndex("SizesId");
+
+                    b.ToTable("ProductProductSize");
+                });
+
             modelBuilder.Entity("WebTask.Common.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -173,7 +190,7 @@ namespace WebTask.EFData.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("varchar(20)")
+                        .HasColumnType("varchar(5)")
                         .HasColumnName("category_name")
                         .HasDefaultValueSql("('')");
 
@@ -209,12 +226,7 @@ namespace WebTask.EFData.Migrations
                         .HasColumnName("size_name")
                         .HasDefaultValueSql("('')");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("productSizes");
                 });
@@ -242,7 +254,7 @@ namespace WebTask.EFData.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("varchar(20)")
+                        .HasColumnType("varchar(5)")
                         .HasColumnName("type_name")
                         .HasDefaultValueSql("('')");
 
@@ -259,8 +271,12 @@ namespace WebTask.EFData.Migrations
                         .HasColumnName("prod_id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("varchar(60)")
+                        .HasColumnName("prod_category")
+                        .HasDefaultValueSql("('')");
 
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
@@ -301,9 +317,6 @@ namespace WebTask.EFData.Migrations
                         .HasColumnName("prod_price")
                         .HasDefaultValueSql("(0)");
 
-                    b.Property<int?>("ProductTypeId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("SaleEndDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
@@ -316,11 +329,14 @@ namespace WebTask.EFData.Migrations
                         .HasColumnName("prod_saleprice")
                         .HasDefaultValueSql("(0)");
 
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("varchar(60)")
+                        .HasColumnName("prod_type")
+                        .HasDefaultValueSql("('')");
+
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("ProductTypeId");
 
                     b.ToTable("products");
                 });
@@ -441,31 +457,19 @@ namespace WebTask.EFData.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WebTask.Common.Entities.ProductSize", b =>
+            modelBuilder.Entity("ProductProductSize", b =>
                 {
                     b.HasOne("WebTask.Common.Product", null)
-                        .WithMany("Sizes")
-                        .HasForeignKey("ProductId");
-                });
-
-            modelBuilder.Entity("WebTask.Common.Product", b =>
-                {
-                    b.HasOne("WebTask.Common.Entities.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("WebTask.Common.Entities.ProductType", "ProductType")
+                    b.HasOne("WebTask.Common.Entities.ProductSize", null)
                         .WithMany()
-                        .HasForeignKey("ProductTypeId");
-
-                    b.Navigation("Category");
-
-                    b.Navigation("ProductType");
-                });
-
-            modelBuilder.Entity("WebTask.Common.Product", b =>
-                {
-                    b.Navigation("Sizes");
+                        .HasForeignKey("SizesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
