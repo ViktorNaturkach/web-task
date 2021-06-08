@@ -31,6 +31,7 @@ namespace WebTask.EFData
             services.AddScoped<IProductRepository, EFProductRepository>();
             services.AddScoped<ICategoryRepository, EFCategoryRepository>();
             services.AddScoped<ITypeRepository, EFTypeRepository>();
+            services.AddScoped<ISizeRepository, EFSizeRepository>();
             return services;
         }
 

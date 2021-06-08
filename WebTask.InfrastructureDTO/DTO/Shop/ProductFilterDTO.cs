@@ -12,20 +12,22 @@ namespace WebTask.InfrastructureDTO.DTO.Shop
     {
         public ProductFilterDTO()
         {
-            itemsCount = 0;
-            itemsPerPage = ProductFilterConstans.ITEMS_PER_PAGE;
-            pSort = ProductFilterConstans.SORT_BY_DEFAULT;
+            ItemsCount = 0;
+            ItemsPerPage = ProductFilterConstans.ITEMS_PER_PAGE;
+            PSort = ProductFilterConstans.SORT_BY_DEFAULT;
             PCategory = 0;
-            pType = 0;
+            PType = 0;
             MinPrice = 0;
             MaxPrice = 0;
+            PSize = 0;
         }
-        public int itemsCount { get; set; } 
-        public int itemsPerPage { get; set;} 
-        public PSort pSort { get; set; } 
+        public int ItemsCount { get; set; } 
+        public int ItemsPerPage { get; set;} 
+        public PSort PSort { get; set; } 
         public  int PCategory { get; set; } 
-        public int pType { get; set; }
+        public int PType { get; set; }
         public int MinPrice { get; set; }
         public int MaxPrice { get; set; }
+        public int PSize { get; set; }
     }
 }

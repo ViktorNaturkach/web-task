@@ -178,7 +178,7 @@
     /*-------------------
 		Range Slider
 	--------------------- */
-	var rangeSlider = $(".price-range"),
+    var rangeSlider = $(".price-range"),
 		minamount = $("#minamount"),
 		maxamount = $("#maxamount"),
 		minPrice = rangeSlider.data('min'),

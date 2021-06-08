@@ -1,8 +1,6 @@
 ﻿@model WebTask.ViewModels.Shop.IndexViewModel
 <input type="hidden" id="newItemsCount" value=@Model.Products.Count()>
 <input type="hidden" id="newProductsCount" value=@Model.TotalProducts>
-<input type="hidden" id="newMinPrice" value=@Model.MinPrice>
-<input type="hidden" id="newMaxPrice" value=@Model.MaxPrice>
 <div class="product-list">
     <div class="row">
         @foreach (var p in Model.Products)

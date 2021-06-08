@@ -9,5 +9,11 @@ namespace WebTask.Common.Entities
 {
     public class ProductSize :BaseEntity
     {
+        public virtual ICollection<Product> Products { get; set; }
+
+        public ProductSize()
+        {
+            Products = new List<Product>();
+        }
     }
 }

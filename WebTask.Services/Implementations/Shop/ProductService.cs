@@ -29,16 +29,40 @@ namespace WebTask.Services.Implementations.Shop
             {
                 eFilter = p => (p.Category.Id == filter.PCategory);
             }
-            if (filter.pType > 0)
+            if (filter.PType > 0)
             {
                 if (eFilter == null)
                 {
-                    eFilter = p => (p.ProductType.Id == filter.pType);
+                    eFilter = p => (p.ProductType.Id == filter.PType);
                 }
                 else
                 {
-                    eFilter = eFilter.And(p => (p.ProductType.Id == filter.pType));
+                    eFilter = eFilter.And(p => (p.ProductType.Id == filter.PType));
                 }
+            }
+            if (filter.MinPrice !=filter.MaxPrice)
+            {
+                if (eFilter == null)
+                {
+                    eFilter = p => ((p.SalePrice >= filter.MinPrice) && (p.SalePrice <= filter.MaxPrice));
+                }
+                else
+                {
+                    eFilter = eFilter.And(p => ((p.SalePrice >= filter.MinPrice) && (p.SalePrice <= filter.MaxPrice)));
+                }
+
+            }
+            if (filter.PSize > 0)
+            {
+                if (eFilter == null)
+                {
+                    eFilter = p => (p.Sizes.Any(s => s.Id == filter.PSize));
+                }
+                else
+                {
+                    eFilter = eFilter.And(p => p.Sizes.Any(s => s.Id == filter.PSize));
+                }
+
             }
             return eFilter;
         }
@@ -55,17 +79,17 @@ namespace WebTask.Services.Implementations.Shop
 
         public async Task<IEnumerable<ProductDTO>> GetProductsAsync(ProductFilterDTO filter)
         {
-            var products = filter.PCategory switch
+            var eFilter = GetFilterExpression(filter);
+            IQueryable<Product> products;
+            if (eFilter == null)
             {
-                0 => _productRepository.GetAll(),
-                _ => _productRepository.GetWhere(c => (c.Category.Id == filter.PCategory))
-            };
-           products = filter.pType switch
+                products = _productRepository.GetAll();
+            }
+            else
             {
-                0 => products,
-                _ => products.Where(t => t.ProductType.Id == filter.pType)
-            };
-            products = filter.pSort switch
+                products = _productRepository.GetWhere(eFilter);
+            }
+            products = filter.PSort switch
             {
                 PSort.PriceAsc => products.OrderBy(s => s.SalePrice),
                 PSort.PriceDesc => products.OrderByDescending(s => s.SalePrice),
@@ -73,7 +97,7 @@ namespace WebTask.Services.Implementations.Shop
                 PSort.DateDesc => products.OrderByDescending(s => s.CreatedDate),
                 _ => products.OrderBy(s => s.SaleEndDate)
             };
-            var model = await products.Take(filter.itemsCount + filter.itemsPerPage).ToListAsync();
+            var model = await products.Take(filter.ItemsCount + filter.ItemsPerPage).ToListAsync();
             return model.Select (record => new ProductDTO
             {
                 Id = record.Id,

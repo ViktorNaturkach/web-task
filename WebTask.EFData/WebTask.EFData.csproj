@@ -19,6 +19,10 @@
     <Compile Include="Migrations\20210603204444_ProductRelations.Designer.cs" />
     <Compile Include="Migrations\20210605121915_ChangeNameSize.cs" />
     <Compile Include="Migrations\20210605121915_ChangeNameSize.Designer.cs" />
+    <Compile Include="Migrations\20210608132657_AddSize.cs" />
+    <Compile Include="Migrations\20210608132657_AddSize.Designer.cs" />
+    <Compile Include="Migrations\20210608134325_AddSize1.cs" />
+    <Compile Include="Migrations\20210608134325_AddSize1.Designer.cs" />
     <Compile Include="Migrations\AppDbContextModelSnapshot.cs" />
   </ItemGroup>
 

@@ -34,14 +34,10 @@ namespace WebTask.Controllers
         {
             var productsDTO = await _productService.GetProductsAsync(filters);
             var count = await _productService.GetProductsCountWhereAsync(filters);
-            var minPrice = await _productService.GetMinProductPriceAsync(filters);
-            var maxPrice = await _productService.GetMaxProductPriceAsync(filters);
             var products = _mapper.Map<IEnumerable<ProductViewModel>>(productsDTO);
             IndexViewModel viewModel =  new IndexViewModel
             {
                 TotalProducts = count,
-                MinPrice = (int) Math.Floor(minPrice),
-                MaxPrice = (int) Math.Ceiling(maxPrice),
                 Products = products
             };
             return PartialView("_Products", viewModel);

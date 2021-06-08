@@ -18,5 +18,10 @@ namespace WebTask.Common
         public Category Category { get; set; }
         public ProductType ProductType { get; set; }
         public virtual ICollection<ProductSize> Sizes { get; set; }
+
+        public Product()
+        {
+            Sizes = new List<ProductSize>();
+        }
     }
 }
