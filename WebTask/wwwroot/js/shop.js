@@ -9,7 +9,17 @@
             pType: $('.pType a.selected').attr('id'),
          };
         GetProducts(filters);
-        });
+    });
+    $("#itemsPerPage").on("change", function () {
+        var filters = {
+            itemsCount: 0,
+            itemsPerPage: $('#itemsPerPage').val(),
+            pSort: $('#pSort').val(),
+            pCategory: $('.pCategory a.selected').attr('id'),
+            pType: $('.pType a.selected').attr('id'),
+        };
+        GetProducts(filters);
+    });
     $('#btnLoadingMore').on('click', function (e) {
         var filters = {
             itemsCount: $('#itemsCount').text(),

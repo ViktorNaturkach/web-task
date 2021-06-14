@@ -11,6 +11,7 @@ using WebTask.Infrastructure.Interfaces.Shop;
 using WebTask.Services.Implementations;
 using WebTask.Services.Implementations.Identity;
 using WebTask.Services.Implementations.Shop;
+using WebTask.Services.Mapings.Shop;
 
 namespace WebTask.Services
 {
@@ -19,6 +20,10 @@ namespace WebTask.Services
 
         public static IServiceCollection AddServicesLayer(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddAutoMapper(typeof(ProductProfile).Assembly);
+            services.AddAutoMapper(typeof(TypeProfile).Assembly);
+            services.AddAutoMapper(typeof(SizeProfile).Assembly);
+
             services.AddScoped<IAuthService, AuthService>();
             services.AddTransient<IUserInfoService, UserInfoService>();
             services.AddScoped<IUsersService, UsersService>();

@@ -8,7 +8,7 @@ namespace WebTask.ViewModels.Shop
 {
     public class ProductViewModel
     {
-        public int ProductID { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
         public decimal SalePrice { get; set; }

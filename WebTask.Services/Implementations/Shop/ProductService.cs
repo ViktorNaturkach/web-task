@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using NPoco.Expressions;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using WebTask.Common;
 using WebTask.Common.Enums;
 using WebTask.Infrastructure;
 using WebTask.Infrastructure.Interfaces.Shop;
+using WebTask.InfrastructureDTO.DTO.Product;
 using WebTask.InfrastructureDTO.DTO.Shop;
 
 namespace WebTask.Services.Implementations.Shop
@@ -16,10 +18,12 @@ namespace WebTask.Services.Implementations.Shop
     public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
+        private readonly IMapper _mapper;
 
-        public ProductService(IProductRepository productRepository)
+        public ProductService(IProductRepository productRepository, IMapper mapper)
         {
             _productRepository = productRepository;
+            _mapper = mapper;
         }
 
         private Expression<Func<Product, bool>> GetFilterExpression(ProductFilterDTO filter)
@@ -33,11 +37,11 @@ namespace WebTask.Services.Implementations.Shop
             {
                 if (eFilter == null)
                 {
-                    eFilter = p => (p.ProductType.Id == filter.PType);
+                    eFilter = p => (p.Types.Any(s => s.Id == filter.PType));
                 }
                 else
                 {
-                    eFilter = eFilter.And(p => (p.ProductType.Id == filter.PType));
+                    eFilter = eFilter.And(p => p.Types.Any(s => s.Id == filter.PType));
                 }
             }
             if (filter.MinPrice !=filter.MaxPrice)
@@ -124,6 +128,16 @@ namespace WebTask.Services.Implementations.Shop
                 return (await _productRepository.GetMaxAsync(x => (decimal?)x.SalePrice)) ?? 0;
             }
             return (await _productRepository.GetWhereMaxAsync(eFilter, x => (decimal?)x.SalePrice)) ?? 0;
+        }
+
+        public async Task<DetailDTO> GetProductDetailAsync(long id)
+        {
+            var product = await _productRepository.GetOneWithIncludeAsync(id);
+            if (product == null)
+            {
+                return null;
+            }
+            return _mapper.Map<DetailDTO>(product);
         }
     }
 }

@@ -23,6 +23,14 @@
     <Compile Include="Migrations\20210608132657_AddSize.Designer.cs" />
     <Compile Include="Migrations\20210608134325_AddSize1.cs" />
     <Compile Include="Migrations\20210608134325_AddSize1.Designer.cs" />
+    <Compile Include="Migrations\20210609193423_ManyToMany_types.cs" />
+    <Compile Include="Migrations\20210609193423_ManyToMany_types.Designer.cs" />
+    <Compile Include="Migrations\20210609194527_ManyToManyTypes.cs" />
+    <Compile Include="Migrations\20210609194527_ManyToManyTypes.Designer.cs" />
+    <Compile Include="Migrations\20210613123538_BigImageProduct.cs" />
+    <Compile Include="Migrations\20210613123538_BigImageProduct.Designer.cs" />
+    <Compile Include="Migrations\20210613124207_BigImageProduct1.cs" />
+    <Compile Include="Migrations\20210613124207_BigImageProduct1.Designer.cs" />
     <Compile Include="Migrations\AppDbContextModelSnapshot.cs" />
   </ItemGroup>
 

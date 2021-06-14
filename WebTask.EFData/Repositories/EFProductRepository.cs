@@ -29,5 +29,9 @@ namespace WebTask.EFData
         {
             return await _context.Set<Product>().Where(expression).MaxAsync(selector);
         }
+        public async Task<Product> GetOneWithIncludeAsync(long id)
+        {
+            return await _context.Set<Product>().Include(p => p.Types).Include(p => p.Sizes).Include(p => p.Category).AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
+        }
     }
 }

@@ -14,14 +14,16 @@ namespace WebTask.Common
         public decimal SalePrice { get; set; }
         public DateTime SaleEndDate { get; set; }
         public string ImageSrc { get; set; }
+        public string BigImageSrc { get; set; }
 
         public Category Category { get; set; }
-        public ProductType ProductType { get; set; }
+        public virtual ICollection<ProductType> Types { get; set; }
         public virtual ICollection<ProductSize> Sizes { get; set; }
 
         public Product()
         {
             Sizes = new List<ProductSize>();
+            Types = new List<ProductType>();
         }
     }
 }

@@ -2116,6 +2116,17 @@ ol {
 	line-height: 23px;
 }
 
+.product-details .pd-title select {
+		display: block;
+		font-size: 12px;
+		color: #b2b2b2;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		font-weight: 700;
+		line-height: 23px;
+}
+
+
 .product-details .pd-title h3 {
 	color: #252525;
 	font-weight: 700;
@@ -2209,40 +2220,38 @@ ol {
 	background: #8230E3;
 }
 
-.product-details .pd-size-choose {
+.product-details .pd-size-choose, .product-details .pdc-size-choose {
 	margin-bottom: 30px;
 }
 
-.product-details .pd-size-choose .sc-item {
-	display: inline-block;
-	margin-right: 5px;
+.product-details .pd-size-choose .sc-item, .product-details .pdc-size-choose .sc-item {
+		display: inline-block;
+		margin-right: 5px;
+}
+.product-details .pd-size-choose .sc-item:last-child, .product-details .pdc-size-choose .sc-item:last-child {
+			margin-right: 0;
+}
+.product-details .pd-size-choose .sc-item input, .product-details .pdc-size-choose .sc-item input {
+			position: absolute;
+			visibility: hidden;
 }
 
-.product-details .pd-size-choose .sc-item:last-child {
-	margin-right: 0;
+.product-details .pd-size-choose .sc-item label, .product-details .pdc-size-choose .sc-item label {
+		font-size: 16px;
+		color: #252525;
+		font-weight: 700;
+		height: 40px;
+		width: 47px;
+		border: 1px solid #ebebeb;
+		text-align: center;
+		line-height: 40px;
+		text-transform: uppercase;
+		cursor: pointer;
 }
 
-.product-details .pd-size-choose .sc-item input {
-	position: absolute;
-	visibility: hidden;
-}
-
-.product-details .pd-size-choose .sc-item label {
-	font-size: 16px;
-	color: #252525;
-	font-weight: 700;
-	height: 40px;
-	width: 47px;
-	border: 1px solid #ebebeb;
-	text-align: center;
-	line-height: 40px;
-	text-transform: uppercase;
-	cursor: pointer;
-}
-
-.product-details .pd-size-choose .sc-item label.active {
-	background: #252525;
-	color: #ffffff;
+.product-details .pd-size-choose .sc-item label.active, .product-details .pdc-size-choose .sc-item label.active {
+			background: #252525;
+			color: #ffffff;
 }
 
 .product-details .quantity {

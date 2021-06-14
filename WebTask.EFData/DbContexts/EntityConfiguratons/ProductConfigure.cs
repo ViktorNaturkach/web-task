@@ -21,6 +21,7 @@ namespace WebTask.EFData.DbContexts.EntityConfiguratons
 			builder.Property(e => e.SalePrice).HasColumnName("prod_saleprice").HasColumnType("decimal(7,2)").HasDefaultValueSql("(0)");
             builder.Property(e => e.SaleEndDate).HasColumnName("prod_saleenddate").HasColumnType("datetime").HasDefaultValueSql("(sysdatetime())");
             builder.Property(e => e.ImageSrc).IsRequired().HasColumnName("prod_imgsrc").HasColumnType("varchar(300)").HasDefaultValueSql("('')");
+            builder.Property(e => e.BigImageSrc).IsRequired().HasColumnName("prod_bigimgsrc").HasColumnType("varchar(300)").HasDefaultValueSql("('')");
         }
 	}
 }

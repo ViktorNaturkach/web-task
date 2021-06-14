@@ -1,0 +1,122 @@
+﻿@model WebTask.ViewModels.Product.UpdateDetailsViewModel
+<!-- Product Shop Section Begin -->
+<section class="product-shop spad page-details">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="product-pic-zoom">
+                            <img class="product-big-img" src="~/img/product-single/@Model.ViewDetails.BigImageSrc" alt="">
+                            <div class="zoom-icon">
+                                <i class="fa fa-search-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <form method="post" asp-controller="Product" asp-action="UpdateDetails">
+                            <div class="product-details">
+                                <div class="pd-title">
+                                    <span>
+                                        <select asp-for="@Model.ViewDetails.Category.Id" asp-items="@Model.AllCategories"></select>
+                                    </span>
+                                    <h3>
+                                        <input asp-for="@Model.ViewDetails.Name" type="text" cols="50">
+                                        <span asp-validation-for="@Model.ViewDetails.Name"></span>
+                                    </h3>
+                                </div>
+                                <div class="pd-desc">
+                                    <p>
+                                        <textarea asp-for="@Model.ViewDetails.Description" rows="5" cols="50"></textarea>
+                                        <span asp-validation-for="@Model.ViewDetails.Description"></span>
+                                    </p>
+                                    <h4>@Model.ViewDetails.Price.ToString("F2")<span>@Model.ViewDetails.SalePrice.ToString("F2")</span></h4>
+                                </div>
+                                <div class="pdc-size-choose">
+                                    @foreach (var size in Model.AllSizes)
+                                    {
+                                        <div class="sc-item">
+                                            <input type="checkbox" asp-for="@size.Cheked" />
+                                            <label asp-for="@size.Id">@size.Name</label>
+                                            <input type="hidden" asp-for="@size.Id" />
+                                            <input type="hidden" asp-for="@size.Name" />
+                                        </div>
+                                    }
+                                </div>
+                                <div class="quantity">
+                                    <a href="#" class="primary-btn pd-cart">Save changes</a>
+                                </div>
+                                <ul class="pd-tags">
+                                    <li><span>TYPES</span>: @(string.Join(",", Model.ViewDetails.Types.Select(p => p.Name)))</li>
+                                </ul>
+                                <div class="pd-share">
+                                    <div class="p-code">Sku : @Model.ViewDetails.Id.ToString().PadLeft(5, '0')</div>
+                                    <div class="pd-social">
+                                        <a href="#"><i class="ti-facebook"></i></a>
+                                        <a href="#"><i class="ti-twitter-alt"></i></a>
+                                        <a href="#"><i class="ti-linkedin"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="product-tab">
+                    <div class="tab-item">
+                        <ul class="nav" role="tablist">
+                            <li>
+                                <a class="active" data-toggle="tab" href="#tab-1" role="tab">Customer Reviews (02)</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-item-content">
+                        <div class="tab-content">
+                            <div class="tab-pane fade-in active" id="tab-1" role="tabpanel">
+                                <div class="customer-review-option">
+                                    <h4>2 Comments</h4>
+                                    <div class="product-content">
+                                        <div class="co-item">
+                                            <div class="avatar-pic">
+                                                <img src="img/product-single/avatar-1.png" alt="">
+                                            </div>
+                                            <div class="avatar-text">
+                                                <h5>Brandon Kelley <span>27 Aug 2019</span></h5>
+                                                <div class="at-reply">Nice !</div>
+                                            </div>
+                                        </div>
+                                        <div class="co-item">
+                                            <div class="avatar-pic">
+                                                <img src="img/product-single/avatar-2.png" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="leave-comment">
+                                        <h4>Leave A Comment</h4>
+                                        <form action="#" class="comment-form">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <input type="text" placeholder="Name">
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <input type="text" placeholder="Email">
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <textarea placeholder="Messages"></textarea>
+                                                    <button type="submit" class="site-btn">Send message</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Product Shop Section End -->
+<script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/product.js"></script>
+

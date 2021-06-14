@@ -8,16 +8,14 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="product-item">
                     <div class="pi-pic">
-                        <img src="~/img/products/@p.ImageSrc" alt="">
+                        <a asp-controller="Product" asp-action="Details" asp-route-id="@p.Id">
+                            <img src="~/img/products/@p.ImageSrc" alt="">
+                        </a>
                         <div class="sale pp-sale">Sale</div>
-                        <div class="icon">
-                            <i class="icon_heart_alt"></i>
-                        </div>
                         <ul>
-                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                            <li class="quick-view"><a href="#">+ Quick View</a></li>
-                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                        </ul>
+                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                <li class="quick-view"><a href="#">+ Quick View</a></li>
+                         </ul>
                     </div>
                     <div class="pi-text">
                         <div class="catagory-name">Category</div>

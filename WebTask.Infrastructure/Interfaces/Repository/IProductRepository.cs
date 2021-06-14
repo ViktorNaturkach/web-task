@@ -14,6 +14,6 @@ namespace WebTask.Infrastructure
         Task<decimal?> GetMaxAsync(Expression<Func<Product, decimal?>> selector);
         Task<decimal?> GetWhereMinAsync(Expression<Func<Product, bool>> expression,Expression<Func<Product, decimal?>> selector);
         Task<decimal?> GetWhereMaxAsync(Expression<Func<Product, bool>> expression, Expression<Func<Product, decimal?>> selector);
-
+        Task<Product> GetOneWithIncludeAsync(long id);
     }
 }

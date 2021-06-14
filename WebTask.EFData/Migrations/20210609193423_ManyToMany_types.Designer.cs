@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebTask.EFData;
 
 namespace WebTask.EFData.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210609193423_ManyToMany_types")]
+    partial class ManyToMany_types
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -165,21 +167,6 @@ namespace WebTask.EFData.Migrations
                     b.ToTable("ProductProductSize");
                 });
 
-            modelBuilder.Entity("ProductProductType", b =>
-                {
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TypesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProductsId", "TypesId");
-
-                    b.HasIndex("TypesId");
-
-                    b.ToTable("ProductProductType");
-                });
-
             modelBuilder.Entity("WebTask.Common.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -271,7 +258,12 @@ namespace WebTask.EFData.Migrations
                         .HasColumnName("type_name")
                         .HasDefaultValueSql("('')");
 
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("productTypes");
                 });
@@ -283,13 +275,6 @@ namespace WebTask.EFData.Migrations
                         .HasColumnType("int")
                         .HasColumnName("prod_id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("BigImageSrc")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("varchar(300)")
-                        .HasColumnName("prod_bigimgsrc")
-                        .HasDefaultValueSql("('')");
 
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int");
@@ -483,19 +468,11 @@ namespace WebTask.EFData.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ProductProductType", b =>
+            modelBuilder.Entity("WebTask.Common.Entities.ProductType", b =>
                 {
                     b.HasOne("WebTask.Common.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebTask.Common.Entities.ProductType", null)
-                        .WithMany()
-                        .HasForeignKey("TypesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Types")
+                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("WebTask.Common.Product", b =>
@@ -505,6 +482,11 @@ namespace WebTask.EFData.Migrations
                         .HasForeignKey("CategoryId");
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("WebTask.Common.Product", b =>
+                {
+                    b.Navigation("Types");
                 });
 #pragma warning restore 612, 618
         }
