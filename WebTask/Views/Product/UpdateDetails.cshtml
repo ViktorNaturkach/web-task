@@ -7,55 +7,80 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="product-pic-zoom">
-                            <img class="product-big-img" src="~/img/product-single/@Model.ViewDetails.BigImageSrc" alt="">
+                            <img class="product-big-img" src="~/img/product-single/@Model.BigImageSrc" alt="">
                             <div class="zoom-icon">
                                 <i class="fa fa-search-plus"></i>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <form method="post" asp-controller="Product" asp-action="UpdateDetails">
+                        <form asp-controller="Product" asp-action="UpdateDetails">
+                            <div asp-validation-summary="All" class="text-danger"></div>
                             <div class="product-details">
                                 <div class="pd-title">
                                     <span>
-                                        <select asp-for="@Model.ViewDetails.Category.Id" asp-items="@Model.AllCategories"></select>
+                                        <select asp-for="@Model.Category.Id" asp-items="@Model.AllCategories"></select>
                                     </span>
                                     <h3>
-                                        <input asp-for="@Model.ViewDetails.Name" type="text" cols="50">
-                                        <span asp-validation-for="@Model.ViewDetails.Name"></span>
+                                        <input asp-for="@Model.Name" type="text">
+                                        <span asp-validation-for="@Model.Name"></span>
                                     </h3>
                                 </div>
                                 <div class="pd-desc">
                                     <p>
-                                        <textarea asp-for="@Model.ViewDetails.Description" rows="5" cols="50"></textarea>
-                                        <span asp-validation-for="@Model.ViewDetails.Description"></span>
+                                        <textarea asp-for="@Model.Description" rows="5" cols="100"></textarea>
+                                        <span asp-validation-for="@Model.Description"></span>
                                     </p>
-                                    <h4>@Model.ViewDetails.Price.ToString("F2")<span>@Model.ViewDetails.SalePrice.ToString("F2")</span></h4>
+                                    <h4>
+                                        <input id="SalePrice" asp-for="@Model.Price" type="text" value="@Model.Price.ToString("F2")">
+                                        <input id="Price" asp-for="@Model.SalePrice" type="text" value="@Model.SalePrice.ToString("F2")">
+                                        <span asp-validation-for="@Model.Price"></span>
+
+                                        <span asp-validation-for="@Model.SalePrice"></span>
+                                    </h4>
                                 </div>
-                                <div class="pdc-size-choose">
-                                    @foreach (var size in Model.AllSizes)
-                                    {
+                                <div class="form-group">
+                                    <div class="pdc-size-choose">
+                                        @for (Int32 i = 0; i < this.Model.AllSizes.Count; i++)
+                                        {
                                         <div class="sc-item">
-                                            <input type="checkbox" asp-for="@size.Cheked" />
-                                            <label asp-for="@size.Id">@size.Name</label>
-                                            <input type="hidden" asp-for="@size.Id" />
-                                            <input type="hidden" asp-for="@size.Name" />
+                                            <input type="checkbox" asp-for="@Model.AllSizes[i].Cheked" />
+                                            @if (@Model.AllSizes[i].Cheked)
+                                            {
+                                                <label asp-for="@Model.AllSizes[i].Cheked" class="active">@Model.AllSizes[i].Name</label>
+                                            }
+                                            else
+                                            {
+                                                <label asp-for="@Model.AllSizes[i].Cheked">@Model.AllSizes[i].Name</label>
+                                            }
+
+                                            <input type="hidden" asp-for="@Model.AllSizes[i].Id" />
+                                            <input type="hidden" asp-for="@Model.AllSizes[i].Name" />
+                                            <br />
                                         </div>
-                                    }
+                                         }
+                                     </div>
+                                   </div>
+                                <ul class="pd-tags">
+                                    <li><span>TYPES</span>:</li>
+                                </ul>
+                                <div class="fw-brand-check">
+                                    <div class="form-group">
+                                        @for (Int32 i = 0; i < this.Model.AllTypes.Count; i++)
+                                        {
+                                            <input type="checkbox" asp-for="@Model.AllTypes[i].Cheked" />
+                                            <label asp-for="@Model.AllTypes[i].Cheked">@Model.AllTypes[i].Name</label>
+                                            <input type="hidden" asp-for="@Model.AllTypes[i].Id" />
+                                            <input type="hidden" asp-for="@Model.AllTypes[i].Name" />
+                                            <br />
+                                        }
+                                    </div>
                                 </div>
                                 <div class="quantity">
-                                    <a href="#" class="primary-btn pd-cart">Save changes</a>
+                                    <button type="submit" class="primary-btn pd-cart">Save changes</button>
                                 </div>
-                                <ul class="pd-tags">
-                                    <li><span>TYPES</span>: @(string.Join(",", Model.ViewDetails.Types.Select(p => p.Name)))</li>
-                                </ul>
                                 <div class="pd-share">
-                                    <div class="p-code">Sku : @Model.ViewDetails.Id.ToString().PadLeft(5, '0')</div>
-                                    <div class="pd-social">
-                                        <a href="#"><i class="ti-facebook"></i></a>
-                                        <a href="#"><i class="ti-twitter-alt"></i></a>
-                                        <a href="#"><i class="ti-linkedin"></i></a>
-                                    </div>
+                                    <div class="p-code">Sku : @Model.Id.ToString().PadLeft(5, '0')</div>
                                 </div>
                             </div>
                         </form>
@@ -77,7 +102,7 @@
                                     <div class="product-content">
                                         <div class="co-item">
                                             <div class="avatar-pic">
-                                                <img src="img/product-single/avatar-1.png" alt="">
+                                                <img src="~/img/product-single/avatar-1.png" alt="">
                                             </div>
                                             <div class="avatar-text">
                                                 <h5>Brandon Kelley <span>27 Aug 2019</span></h5>
@@ -86,7 +111,7 @@
                                         </div>
                                         <div class="co-item">
                                             <div class="avatar-pic">
-                                                <img src="img/product-single/avatar-2.png" alt="">
+                                                <img src="~/img/product-single/avatar-2.png" alt="">
                                             </div>
                                         </div>
                                     </div>
