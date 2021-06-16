@@ -22,12 +22,9 @@ namespace WebTask.ViewModels.Product
         [Required]
         [Range(0, 999.99)]
         public decimal SalePrice { get; set; }
-        public string ImageSrc { get; set; }
         public string BigImageSrc { get; set; }
         [Required]
         public Category Category { get; set; }
-        public virtual List<TypeViewModel> Types { get; set; }
-        public virtual List<SizeViewModel> Sizes { get; set; }
         public SelectList AllCategories { get; set; }
         public virtual List<TypeViewModel> AllTypes { get; set; }
         public virtual List<SizeViewModel> AllSizes { get; set; }

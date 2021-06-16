@@ -48,13 +48,13 @@ namespace WebTask.Controllers
         public async Task<IActionResult> UpdateDetails(long id)
         {
             var productDTO = await _productService.GetProductDetailAsync(id);
-            var model = _mapper.Map<UpdateDetailsViewModel>(productDTO);
             var categories = await _categoryService.GetCategoriesAsync();
-            var allCategories = _mapper.Map<IEnumerable<CategoryViewModel>>(categories);
             var types = await _typeService.GetTypesAsync();
             var sizes = await _sizeService.GetSizesAsync();
+            var allCategories = _mapper.Map<IEnumerable<CategoryViewModel>>(categories);
             var allSizes = _mapper.Map<IEnumerable<SizeViewModel>>(sizes);
             var allTypes = _mapper.Map<IEnumerable<TypeViewModel>>(types);
+            var model = _mapper.Map<UpdateDetailsViewModel>(productDTO);
             foreach (var item in allSizes){
                 item.Cheked = productDTO.Sizes.ToList().Exists(x => x.Id == item.Id);
             }
@@ -62,19 +62,9 @@ namespace WebTask.Controllers
             {
                 item.Cheked = productDTO.Types.ToList().Exists(x => x.Id == item.Id);
             }
-            
             model.AllSizes = allSizes.ToList();
             model.AllTypes = allTypes.ToList();
-            //model.AllTypes = allTypes.Select(n => n.Name).ToList();
-            //model.Types =productDTO.Types.Select(n => n.Name).ToList();
             model.AllCategories = new SelectList(allCategories, "Id", "Name", productDTO.Category.Id);
-            //var model = new UpdateDetailsViewModel()
-            //{
-            //    ViewDetails = viewDetails,
-            //    AllCategories = new SelectList(allCategories, "Id", "Name", productDTO.Category.Id),
-            //    AllTypes = allTypes,
-            //    AllSizes = allSizes
-            //};
             return View(model);
         }
         [HttpPost]
@@ -86,5 +76,10 @@ namespace WebTask.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ProductDetailsImg(DetailsImgViewModel file)
+        {
+            return PartialView("_ProductDetailsImg", file.BigImageSrc);
+        }   
     }
 }

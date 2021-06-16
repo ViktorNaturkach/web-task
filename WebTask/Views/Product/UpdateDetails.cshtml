@@ -5,17 +5,13 @@
         <div class="row">
             <div class="col-lg-9">
                 <div class="row">
-                    <div class="col-lg-6">
-                        <div class="product-pic-zoom">
-                            <img class="product-big-img" src="~/img/product-single/@Model.BigImageSrc" alt="">
-                            <div class="zoom-icon">
-                                <i class="fa fa-search-plus"></i>
-                            </div>
-                        </div>
+                    <div id="productDetailsImg" class="col-lg-6">
+                        @await Html.PartialAsync("_ProductDetailsImg.cshtml", Model.BigImageSrc)
                     </div>
                     <div class="col-lg-6">
                         <form asp-controller="Product" asp-action="UpdateDetails">
                             <div asp-validation-summary="All" class="text-danger"></div>
+                            <input asp-for="@Model.BigImageSrc" type="hidden" class="BigImageSrc">
                             <div class="product-details">
                                 <div class="pd-title">
                                     <span>
@@ -101,18 +97,12 @@
                                     <h4>2 Comments</h4>
                                     <div class="product-content">
                                         <div class="co-item">
-                                            <div class="avatar-pic">
-                                                <img src="~/img/product-single/avatar-1.png" alt="">
-                                            </div>
-                                            <div class="avatar-text">
+                                             <div class="avatar-text">
                                                 <h5>Brandon Kelley <span>27 Aug 2019</span></h5>
                                                 <div class="at-reply">Nice !</div>
                                             </div>
                                         </div>
                                         <div class="co-item">
-                                            <div class="avatar-pic">
-                                                <img src="~/img/product-single/avatar-2.png" alt="">
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="leave-comment">
