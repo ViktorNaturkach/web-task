@@ -12,6 +12,7 @@
                         <form asp-controller="Product" asp-action="UpdateDetails">
                             <div asp-validation-summary="All" class="text-danger"></div>
                             <input asp-for="@Model.BigImageSrc" type="hidden" class="BigImageSrc">
+                            <input asp-for="@Model.Id" type="hidden">
                             <div class="product-details">
                                 <div class="pd-title">
                                     <span>
@@ -39,24 +40,24 @@
                                     <div class="pdc-size-choose">
                                         @for (Int32 i = 0; i < this.Model.AllSizes.Count; i++)
                                         {
-                                        <div class="sc-item">
-                                            <input type="checkbox" asp-for="@Model.AllSizes[i].Cheked" />
-                                            @if (@Model.AllSizes[i].Cheked)
-                                            {
-                                                <label asp-for="@Model.AllSizes[i].Cheked" class="active">@Model.AllSizes[i].Name</label>
-                                            }
-                                            else
-                                            {
-                                                <label asp-for="@Model.AllSizes[i].Cheked">@Model.AllSizes[i].Name</label>
-                                            }
+                                            <div class="sc-item">
+                                                <input type="checkbox" asp-for="@Model.AllSizes[i].Cheked" />
+                                                @if (@Model.AllSizes[i].Cheked)
+                                                {
+                                                    <label asp-for="@Model.AllSizes[i].Cheked" class="active">@Model.AllSizes[i].Name</label>
+                                                }
+                                                else
+                                                {
+                                                    <label asp-for="@Model.AllSizes[i].Cheked">@Model.AllSizes[i].Name</label>
+                                                }
 
-                                            <input type="hidden" asp-for="@Model.AllSizes[i].Id" />
-                                            <input type="hidden" asp-for="@Model.AllSizes[i].Name" />
-                                            <br />
-                                        </div>
-                                         }
-                                     </div>
-                                   </div>
+                                                <input type="hidden" asp-for="@Model.AllSizes[i].Id" />
+                                                <input type="hidden" asp-for="@Model.AllSizes[i].Name" />
+                                                <br />
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
                                 <ul class="pd-tags">
                                     <li><span>TYPES</span>:</li>
                                 </ul>

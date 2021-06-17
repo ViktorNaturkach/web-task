@@ -8,6 +8,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebTask.Infrastructure.Interfaces.Identity;
 using WebTask.Infrastructure.Interfaces.Shop;
+using WebTask.InfrastructureDTO.DTO.Product;
+using WebTask.InfrastructureDTO.DTO.Shop;
 using WebTask.ViewModels.Product;
 using WebTask.ViewModels.Shop;
 
@@ -69,15 +71,36 @@ namespace WebTask.Controllers
         }
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public IActionResult UpdateDetails(UpdateDetailsViewModel model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateDetails(UpdateDetailsViewModel model)
         {
-            //var productDTO = await _productService.GetProductDetailAsync(id);
-    //          var productDTO = _mapper.Map<ViewDetailsViewModel>(model);
+            if (ModelState.IsValid)
+            {
+                var detailDTO = _mapper.Map<DetailDTO>(model);
+                var sizes = model.AllSizes.Where(s => s.Cheked).ToList();
+                foreach (var item in sizes)
+                {
+                    detailDTO.Sizes.Add(new SizeDTO { Id = item.Id, Name = item.Name });
+                }
+                var types = model.AllTypes.Where(t => t.Cheked).ToList();
+                foreach (var item in types)
+                {
+                    detailDTO.Types.Add(new TypeDTO { Id = item.Id, Name = item.Name });
+                }
+                var result = await _productService.UpdateProductAsync(detailDTO);
+                if (result)
+                {
+                    return RedirectToAction("Index", "Shop");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                }
+            }
             return View();
         }
-
         [HttpPost]
-        public async Task<IActionResult> ProductDetailsImg(DetailsImgViewModel file)
+        public IActionResult ProductDetailsImg(DetailsImgViewModel file)
         {
             return PartialView("_ProductDetailsImg", file.BigImageSrc);
         }   

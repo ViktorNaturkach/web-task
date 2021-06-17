@@ -15,5 +15,6 @@ namespace WebTask.Infrastructure.Interfaces.Shop
         Task<decimal> GetMinProductPriceAsync(ProductFilterDTO filter);
         Task<decimal> GetMaxProductPriceAsync(ProductFilterDTO filter);
         Task<DetailDTO> GetProductDetailAsync(long id);
+        Task<bool> UpdateProductAsync(DetailDTO detailDTO);
     }
 }

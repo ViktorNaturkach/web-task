@@ -139,5 +139,12 @@ namespace WebTask.Services.Implementations.Shop
             }
             return _mapper.Map<DetailDTO>(product);
         }
+
+        public async Task<bool> UpdateProductAsync(DetailDTO detailDTO)
+        {
+            var product = _mapper.Map<Product>(detailDTO);
+
+            return await _productRepository.UpdateProductAsync(product);
+        }
     }
 }
