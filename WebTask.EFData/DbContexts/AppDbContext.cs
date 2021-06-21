@@ -15,7 +15,6 @@ namespace WebTask.EFData
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
             base.OnModelCreating(modelBuilder);
-
             modelBuilder.ApplyConfiguration(new ProductConfigure());
             modelBuilder.ApplyConfiguration(new ProductSizeConfigure());
             modelBuilder.ApplyConfiguration(new ProductTypeConfigure());

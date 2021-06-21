@@ -17,8 +17,8 @@ namespace WebTask.Common
         public string BigImageSrc { get; set; }
 
         public Category Category { get; set; }
-        public virtual ICollection<ProductType> Types { get; set; }
-        public virtual ICollection<ProductSize> Sizes { get; set; }
+        public ICollection<ProductType> Types { get; set; }
+        public ICollection<ProductSize> Sizes { get; set; }
 
         public Product()
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,10 @@ namespace WebTask.EFData.Repositories
     {
         public EFCategoryRepository(AppDbContext context) : base(context)
         {
+        }
+        public async Task<Category> GetOneAsync(long id)
+        {
+            return await _context.Set<Category>().AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
         }
     }
 }

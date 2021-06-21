@@ -15,8 +15,11 @@ namespace WebTask.EFData
     {
         public static IServiceCollection AddEFDataLayer(this IServiceCollection services, IConfiguration configuration)
         {
+            //.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             services.AddDbContext<AppDbContext>(options =>
-                   options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+                   options
+                   .EnableSensitiveDataLogging()
+                   .UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                     o => o.MigrationsAssembly("WebTask.EFData")));
 
             services.AddIdentity<User, IdentityRole>()

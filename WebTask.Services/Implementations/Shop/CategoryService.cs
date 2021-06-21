@@ -28,5 +28,10 @@ namespace WebTask.Services.Implementations.Shop
             });
             return await categories.ToListAsync();
         }
+
+        public Task<CategoryDTO> GetOneAsync(long id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

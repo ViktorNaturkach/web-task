@@ -10,5 +10,6 @@ namespace WebTask.Infrastructure.Interfaces.Repository
 {
     public interface ITypeRepository :IBaseRepository<ProductType>
     {
-    }
+        Task<ProductType> GetOneAsync(long id);
+     }
 }

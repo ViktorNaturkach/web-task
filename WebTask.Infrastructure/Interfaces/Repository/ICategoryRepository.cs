@@ -9,5 +9,7 @@ namespace WebTask.Infrastructure.Interfaces.Repository
 {
     public interface ICategoryRepository :IBaseRepository<Category>
     {
+        Task<Category> GetOneAsync(long id);
     }
+  
 }

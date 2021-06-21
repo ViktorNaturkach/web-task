@@ -9,5 +9,6 @@ namespace WebTask.Infrastructure.Interfaces.Repository
 {
     public interface ISizeRepository:IBaseRepository<ProductSize>
     {
+        Task<ProductSize> GetOneAsync(long id);
     }
 }

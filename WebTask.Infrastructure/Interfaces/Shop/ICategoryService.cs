@@ -10,5 +10,5 @@ namespace WebTask.Infrastructure.Interfaces.Shop
     public interface ICategoryService
     {
         Task<IEnumerable<CategoryDTO>> GetCategoriesAsync();
-    }
+      }
 }
